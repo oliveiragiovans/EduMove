@@ -2,37 +2,41 @@
 
 ## Overview
 
-EduMove follows the **Model-View-Controller (MVC)** architectural pattern, which separates the application into independent layers, improving code organization, scalability, and maintainability.
+EduMove follows an architectural approach based on the **Model-View-Controller (MVC)** pattern, combined with a service-oriented structure to separate presentation, business logic, and data persistence.
 
-This architecture allows each component of the system to have a clear responsibility, making future updates and testing easier.
+The main goal of this architecture is to improve maintainability, scalability, and organization by defining clear responsibilities between application components.
+
+This structure allows future expansion of the system, including multiple schools, automated reports, dashboards, and integration with external services.
 
 ---
 
 # Architecture Diagram
 
 ```text
-                User
-                  │
-                  ▼
-        Streamlit Interface
-               (View)
-                  │
-                  ▼
-          Controllers Layer
-                  │
-        ┌─────────┴─────────┐
-        ▼                   ▼
- Business Rules         Utilities
-   (Services)            (Utils)
-        │
-        ▼
-      Models
-        │
-        ▼
- SQLAlchemy ORM
-        │
-        ▼
-      MySQL
+                         User
+                           │
+                           ▼
+                 Streamlit Interface
+                       (View)
+                           │
+                           ▼
+                  Controllers Layer
+                           │
+                           ▼
+                 Services Layer
+                           │
+          ┌────────────────┴────────────────┐
+          ▼                                 ▼
+   Business Rules                        Utils
+          │
+          ▼
+        Models
+          │
+          ▼
+      SQLAlchemy ORM
+          │
+          ▼
+        MySQL
 ```
 
 ---
@@ -41,60 +45,78 @@ This architecture allows each component of the system to have a clear responsibi
 
 ## View
 
-Responsible for the graphical interface of the application.
+Responsible for the user interface and interaction with the application.
 
-### Technologies
+### Technology
 
 * Streamlit
 
 ### Responsibilities
 
-* Display pages
-* Receive user input
-* Display reports
-* Display dashboards
+* Display application pages
+* Receive user inputs
+* Present dashboards and reports
+* Show assessment results
 
 ---
 
 ## Controller
 
-Acts as the communication layer between the interface and the business logic.
+Responsible for managing communication between the interface and application services.
 
 ### Responsibilities
 
 * Receive requests from the View
-* Validate data
-* Call the appropriate services
-* Return responses to the interface
+* Validate input data
+* Call appropriate services
+* Return processed information to the interface
+
+Controllers should not contain business logic.
 
 ---
 
 ## Service
 
-Contains the business rules of the application.
+Contains application workflows and coordinates business operations.
 
-Examples:
+### Responsibilities
 
-* Register students
-* Register assessments
+* Manage student registration
+* Process assessments
 * Generate reports
-* Validate business rules
+* Coordinate interactions between models and business rules
+
+---
+
+## Business Rules
+
+Contains specific domain rules related to physical education assessments.
+
+### Examples:
+
+* Validate assessment requirements
+* Apply evaluation criteria
+* Consider gender-specific assessment parameters
+* Calculate performance indicators
+
+This layer keeps domain knowledge independent from the interface and database.
 
 ---
 
 ## Model
 
-Represents the entities stored in the database.
+Represents the entities and relationships of the system.
 
 Main entities:
 
+* School
 * Teacher
 * Class
 * Student
 * Assessment
 * Motor Test
 
-The Model layer communicates with the database through SQLAlchemy.
+The Model layer communicates with the database through SQLAlchemy ORM.
 
 ---
 
@@ -104,7 +126,14 @@ Database Management System:
 
 * MySQL
 
-Responsible for storing all application data.
+Responsible for data persistence and maintaining relationships between entities.
+
+The database structure supports:
+
+* School management
+* Student records
+* Assessment history
+* Motor development analysis
 
 ---
 
@@ -114,10 +143,17 @@ Responsible for storing all application data.
 src/
 │
 ├── config/
+│
 ├── controllers/
+│
 ├── models/
+│
 ├── services/
+│
+├── business_rules/
+│
 ├── utils/
+│
 └── views/
 ```
 
@@ -125,26 +161,27 @@ src/
 
 # Technologies
 
-| Layer         | Technology          |
-| ------------- | ------------------- |
-| Interface     | Streamlit           |
-| Backend       | Python              |
-| ORM           | SQLAlchemy          |
-| Database      | MySQL               |
-| Data Analysis | Pandas              |
-| Charts        | Matplotlib / Plotly |
-| Reports       | ReportLab           |
+| Layer              | Technology          |
+| ------------------ | ------------------- |
+| Interface          | Streamlit           |
+| Backend            | Python              |
+| ORM                | SQLAlchemy          |
+| Database           | MySQL               |
+| Data Analysis      | Pandas              |
+| Data Visualization | Matplotlib / Plotly |
+| Reports            | ReportLab           |
 
 ---
 
 # Design Principles
 
-The project follows the following software engineering principles:
+EduMove follows software engineering principles focused on maintainability and scalability:
 
 * Separation of Concerns (SoC)
 * Single Responsibility Principle (SRP)
 * Modularity
 * Code Reusability
+* Domain-driven organization
 * Scalability
 
 ---
@@ -153,21 +190,24 @@ The project follows the following software engineering principles:
 
 Future versions of EduMove may include:
 
-* REST API
+* REST API development
 * User authentication with JWT
 * Docker deployment
-* Cloud database
+* Cloud database migration
 * Automated testing
-* Continuous Integration (CI/CD)
+* Continuous Integration and Continuous Deployment (CI/CD)
+* Mobile application integration
 
 ---
 
 # Current Status
 
-Architecture defined.
+The initial architecture and database structure have been defined.
 
-Next step:
+Current development priorities:
 
-* Database modeling
+* Database implementation in MySQL
+* Entity Relationship Diagram (ERD)
+* Backend development
 * User interface prototyping
-* Backend implementation
+* Implementation of business rules

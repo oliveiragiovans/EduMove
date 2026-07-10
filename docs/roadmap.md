@@ -2,131 +2,164 @@
 
 ## Overview
 
-This roadmap outlines the planned development stages of EduMove. Features are organized into versions to ensure incremental delivery and continuous improvement.
+This roadmap describes the planned development stages of EduMove, organizing features and improvements into progressive versions.
+
+The development strategy focuses on delivering a functional MVP first, while maintaining an architecture prepared for scalability and future educational features.
 
 ---
 
 # 🚧 Version 1.0 - Minimum Viable Product (MVP)
 
-**Goal:** Build the core features required for teachers to manage students and motor assessments.
+**Goal:** Develop the core platform for managing students and motor assessments in physical education environments.
 
-### Planning
+---
+
+## Planning & Documentation
 
 * [x] Project creation
 * [x] Repository setup
 * [x] Software documentation
-* [ ] Database modeling
-* [ ] Wireframes
+* [x] Database modeling
+* [x] Software architecture definition
+* [ ] Wireframes and interface prototypes
 
-### Backend
+---
+
+## Database
+
+* [x] Define database entities
+* [x] Create initial relational model
+* [ ] Implement MySQL schema
+* [ ] Create migration scripts
+* [ ] Configure SQLAlchemy models
+
+---
+
+## Backend
 
 * [ ] Configure project structure
-* [ ] Connect to MySQL
-* [ ] Implement SQLAlchemy
+* [ ] Connect application to MySQL
+* [ ] Implement SQLAlchemy ORM
+* [ ] Create business rules layer
 * [ ] User authentication
-* [ ] CRUD for teachers
-* [ ] CRUD for classes
-* [ ] CRUD for students
-* [ ] CRUD for assessments
+* [ ] CRUD operations for schools
+* [ ] CRUD operations for teachers
+* [ ] CRUD operations for classes
+* [ ] CRUD operations for students
+* [ ] CRUD operations for assessments
+* [ ] Motor test result management
 
-### Frontend
+---
+
+## Frontend
 
 * [ ] Login page
 * [ ] Dashboard
-* [ ] Class management
+* [ ] School and class management
 * [ ] Student management
-* [ ] Assessment form
-* [ ] Assessment history
+* [ ] Assessment registration form
+* [ ] Assessment history visualization
 
-### Testing
+---
+
+## Testing
 
 * [ ] Unit tests
 * [ ] Integration tests
+* [ ] Database validation tests
 
 ---
 
 # 📊 Version 1.1 - Reports & Analytics
 
-**Goal:** Provide teachers with meaningful insights from assessment data.
+**Goal:** Transform assessment data into useful insights for teachers.
+
+Features:
 
 * [ ] Student progress charts
-* [ ] Dashboard with statistics
+* [ ] Class performance dashboard
 * [ ] PDF report generation
 * [ ] Excel export
-* [ ] Search and filtering
+* [ ] Search and filtering system
 * [ ] Performance indicators
+* [ ] Assessment comparison over time
 
 ---
 
-# ☁️ Version 2.0 - Advanced Features
+# ☁️ Version 2.0 - Scalability & Platform Features
 
-**Goal:** Improve usability and scalability.
+**Goal:** Expand EduMove into a complete educational platform.
 
-* [ ] School registration
-* [ ] Multiple teachers
-* [ ] User roles
+Features:
+
+* [ ] Multiple schools management
+* [ ] User roles and permissions
 * [ ] Password recovery
 * [ ] Email notifications
 * [ ] Responsive interface
 * [ ] Cloud deployment
+* [ ] Database optimization
 
 ---
 
 # 🤖 Version 3.0 - Intelligent Features
 
-**Goal:** Enhance decision-making through data and automation.
+**Goal:** Support decision-making through data analysis and automation.
+
+Features:
 
 * [ ] AI-assisted assessment analysis
 * [ ] Personalized recommendations
 * [ ] BNCC skills tracking
 * [ ] Automatic student performance reports
 * [ ] Predictive analytics
-* [ ] REST API
+* [ ] REST API development
 
 ---
 
-# 📅 Long-Term Vision
+# 📱 Long-Term Vision
 
 Future possibilities for EduMove include:
 
 * Mobile application
 * Offline mode
 * Integration with school management systems
-* Multi-language support
 * Parent portal
 * Teacher community
+* Advanced educational analytics
 
 ---
 
 # 📈 Project Timeline
 
-| Phase                | Status         |
-| -------------------- | -------------- |
-| Planning             | ✅ Completed    |
-| Documentation        | 🔄 In Progress |
-| Database Design      | ⏳ Planned      |
-| Backend Development  | ⏳ Planned      |
-| Frontend Development | ⏳ Planned      |
-| Testing              | ⏳ Planned      |
-| Deployment           | ⏳ Planned      |
+| Phase                   | Status         |
+| ----------------------- | -------------- |
+| Planning                | ✅ Completed    |
+| Documentation           | ✅ Completed    |
+| Database Design         | ✅ Completed    |
+| Database Implementation | 🔄 In Progress |
+| Backend Development     | ⏳ Planned      |
+| Frontend Development    | ⏳ Planned      |
+| Testing                 | ⏳ Planned      |
+| Deployment              | ⏳ Planned      |
 
 ---
 
 # 📌 Current Sprint
 
-**Sprint 1 — Project Foundation**
+## Sprint 1 — Project Foundation
 
 ### Objectives
 
 * Complete project documentation
-* Design the database
-* Define software architecture
-* Create wireframes
-* Prepare the development environment
+* Finalize database structure
+* Create ERD diagram
+* Prepare MySQL environment
+* Define application structure
+* Prepare initial development environment
 
 ---
 
 # 🎯 Next Milestone
 
-Complete the database implementation and begin backend development for Version 1.0.
-
+Complete database implementation and start backend development, including SQLAlchemy models and the first business rules for student and assessment management.

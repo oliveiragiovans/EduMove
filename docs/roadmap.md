@@ -21,7 +21,8 @@ The development strategy focuses on delivering a functional MVP first, while mai
 * [x] Software documentation
 * [x] Database modeling
 * [x] Software architecture definition
-* [ ] Wireframes and interface prototypes
+* [x] Initial wireframes and navigation flow
+* [x] Entity Relationship Diagram (ERD)
 
 ---
 
@@ -29,8 +30,11 @@ The development strategy focuses on delivering a functional MVP first, while mai
 
 * [x] Define database entities
 * [x] Create initial relational model
-* [ ] Implement MySQL schema
-* [ ] Create migration scripts
+* [x] Implement the initial MySQL schema
+* [x] Create migration scripts
+* [x] Create the initial motor test seed
+* [x] Validate the complete database relationship flow
+* [ ] Consolidate migrations into `schema.sql` or implement a migration runner
 * [ ] Configure SQLAlchemy models
 
 ---
@@ -38,10 +42,11 @@ The development strategy focuses on delivering a functional MVP first, while mai
 ## Backend
 
 * [ ] Configure project structure
+* [ ] Configure environment variables
 * [ ] Connect application to MySQL
 * [ ] Implement SQLAlchemy ORM
 * [ ] Create business rules layer
-* [ ] User authentication
+* [ ] Implement user authentication
 * [ ] CRUD operations for schools
 * [ ] CRUD operations for teachers
 * [ ] CRUD operations for classes
@@ -64,9 +69,10 @@ The development strategy focuses on delivering a functional MVP first, while mai
 
 ## Testing
 
+* [x] Initial database integration test
+* [ ] Foreign key and constraint validation tests
 * [ ] Unit tests
-* [ ] Integration tests
-* [ ] Database validation tests
+* [ ] Application integration tests
 
 ---
 
@@ -92,8 +98,8 @@ Features:
 
 Features:
 
-* [ ] Multiple schools management
-* [ ] User roles and permissions
+* [ ] Multi-school account management
+* [ ] Advanced user roles and permissions
 * [ ] Password recovery
 * [ ] Email notifications
 * [ ] Responsive interface
@@ -132,16 +138,17 @@ Future possibilities for EduMove include:
 
 # 📈 Project Timeline
 
-| Phase                   | Status         |
-| ----------------------- | -------------- |
-| Planning                | ✅ Completed    |
-| Documentation           | ✅ Completed    |
-| Database Design         | ✅ Completed    |
-| Database Implementation | 🔄 In Progress |
-| Backend Development     | ⏳ Planned      |
-| Frontend Development    | ⏳ Planned      |
-| Testing                 | ⏳ Planned      |
-| Deployment              | ⏳ Planned      |
+| Phase | Status |
+| --- | --- |
+| Planning | ✅ Completed |
+| Documentation | ✅ Completed |
+| Database Design | ✅ Completed |
+| Initial Database Implementation | ✅ Completed |
+| Database Automation | ⏳ Planned |
+| Backend Development | ⏳ Planned |
+| Frontend Development | ⏳ Planned |
+| Testing | 🔄 In Progress |
+| Deployment | ⏳ Planned |
 
 ---
 
@@ -149,17 +156,25 @@ Future possibilities for EduMove include:
 
 ## Sprint 1 — Project Foundation
 
-### Objectives
+### Completed
 
-* Complete project documentation
-* Finalize database structure
-* Create ERD diagram
-* Prepare MySQL environment
-* Define application structure
-* Prepare initial development environment
+* [x] Complete project documentation
+* [x] Finalize the initial database structure
+* [x] Create the ERD diagram
+* [x] Prepare the MySQL environment
+* [x] Define the application architecture
+* [x] Create migrations for the seven main tables
+* [x] Create the initial motor test seed
+* [x] Validate the complete database flow with `ROLLBACK`
+
+### Remaining
+
+* [ ] Consolidate schema execution
+* [ ] Add negative database tests
+* [ ] Prepare the backend project structure
 
 ---
 
 # 🎯 Next Milestone
 
-Complete database implementation and start backend development, including SQLAlchemy models and the first business rules for student and assessment management.
+Complete database automation and begin backend development by configuring the Python project structure, MySQL connection, and SQLAlchemy models.

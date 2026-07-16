@@ -243,7 +243,7 @@ Protocol names and descriptions will be added after the scientific references us
 | `006_create_motor_tests.sql` | Creates the motor test catalog | Completed |
 | `007_create_assessment_results.sql` | Creates attempts and results | Completed |
 
-The migration files are the current source of truth for table creation. The main `schema.sql` file still initializes the database and must be consolidated in a later step.
+The migration files preserve the incremental database history. The consolidated `schema.sql` can initialize a new EduMove database and has been successfully validated in a temporary MySQL database.
 
 ---
 

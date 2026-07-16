@@ -34,7 +34,9 @@ The development strategy focuses on delivering a functional MVP first, while mai
 * [x] Create migration scripts
 * [x] Create the initial motor test seed
 * [x] Validate the complete database relationship flow
-* [ ] Consolidate migrations into `schema.sql` or implement a migration runner
+* [x] Consolidate migrations into `schema.sql`
+* [x] Validate the consolidated schema in a temporary database
+* [ ] Implement an automated migration runner
 * [ ] Configure SQLAlchemy models
 
 ---

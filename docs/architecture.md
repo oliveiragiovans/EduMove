@@ -111,10 +111,11 @@ Main entities:
 
 * School
 * Teacher
-* Class
+* School Class
 * Student
 * Assessment
 * Motor Test
+* Assessment Result
 
 The Model layer communicates with the database through SQLAlchemy ORM.
 
@@ -125,6 +126,7 @@ The Model layer communicates with the database through SQLAlchemy ORM.
 Database Management System:
 
 * MySQL
+* InnoDB storage engine
 
 Responsible for data persistence and maintaining relationships between entities.
 
@@ -202,12 +204,20 @@ Future versions of EduMove may include:
 
 # Current Status
 
-The initial architecture and database structure have been defined.
+The database and ORM foundations are implemented. The application currently includes:
+
+* Environment-based configuration
+* SQLAlchemy engine and transactional session management
+* Seven mapped database entities
+* Bidirectional ORM relationships
+* Configurable motor-test protocols and attempt limits
+* InnoDB foreign-key enforcement
+* Automated ORM model tests
 
 Current development priorities:
 
-* Database implementation in MySQL
-* Entity Relationship Diagram (ERD)
-* Backend development
-* User interface prototyping
-* Implementation of business rules
+* Service and business-rules layers
+* CRUD workflows
+* Categorical postural-observation modeling
+* User authentication
+* Streamlit interface implementation

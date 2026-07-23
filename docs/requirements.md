@@ -43,7 +43,7 @@ The system shall allow teachers to edit class information.
 
 ### RF06
 
-The system shall allow teachers to delete classes.
+The system shall allow teachers to deactivate classes without deleting their history.
 
 ### RF07
 
@@ -63,7 +63,7 @@ The system shall allow teachers to edit student information.
 
 ### RF10
 
-The system shall allow teachers to remove students.
+The system shall allow teachers to deactivate students without deleting their history.
 
 ### RF11
 
@@ -93,15 +93,46 @@ The system shall allow multiple assessments for the same student.
 
 The system shall display the complete assessment history.
 
+### RF17
+
+The system shall allow the teacher to record optional body mass and height for an
+assessment.
+
+### RF18
+
+The system shall calculate BMI from body mass and height without duplicating it as a
+source measurement.
+
+### RF19
+
+The system shall record multiple attempts for each motor test.
+
+### RF20
+
+The system shall support measurement results and binary success/failure trials.
+
+### RF21
+
+The system shall aggregate attempts according to the motor-test protocol.
+
+### RF22
+
+The system shall allow 3 to 10 ball-reception throws, selected by the teacher.
+
+### RF23
+
+The system shall record educational postural observations for shoulders, spine,
+knees, and feet with visual references.
+
 ---
 
 ## Reports
 
-### RF17
+### RF24
 
 The system shall allow teachers to view student progress.
 
-### RF18
+### RF25
 
 The system shall generate reports (future version).
 
@@ -133,6 +164,16 @@ The application shall provide a simple and intuitive interface.
 
 The system shall ensure secure authentication.
 
+### RNF07
+
+Postural observations shall be presented as educational screening records and not as
+medical diagnoses.
+
+### RNF08
+
+Protocol source and version information shall remain available so historical results
+can be interpreted correctly.
+
 ---
 
 # 4. Future Features
@@ -150,8 +191,10 @@ The system shall ensure secure authentication.
 
 # 5. Project Status
 
-Current Version: Planning Phase
+Current Version: Backend Foundation
 
 Next Step:
 
-* Database modeling
+* Service and business-rules layer
+* First CRUD workflow
+* Postural-observation data model

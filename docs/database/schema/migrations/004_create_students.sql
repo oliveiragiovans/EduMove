@@ -31,4 +31,4 @@ CREATE TABLE students (
     CONSTRAINT fk_student_class
         FOREIGN KEY (class_id)
         REFERENCES classes(class_id)
-);
+) ENGINE=InnoDB;

@@ -28,7 +28,7 @@ CREATE TABLE schools (
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
         ON UPDATE CURRENT_TIMESTAMP
-);
+) ENGINE=InnoDB;
 
 -- ==========================================
 -- Table: teachers
@@ -54,7 +54,7 @@ CREATE TABLE teachers (
     CONSTRAINT fk_teacher_school
         FOREIGN KEY (school_id)
         REFERENCES schools(school_id)
-);
+) ENGINE=InnoDB;
 
 -- ==========================================
 -- Table: classes
@@ -99,7 +99,7 @@ CREATE TABLE classes (
         section,
         academic_year
     )
-);
+) ENGINE=InnoDB;
 
 -- ==========================================
 -- Table: students
@@ -124,7 +124,7 @@ CREATE TABLE students (
     CONSTRAINT fk_student_class
         FOREIGN KEY (class_id)
         REFERENCES classes(class_id)
-);
+) ENGINE=InnoDB;
 
 -- ==========================================
 -- Table: assessments
@@ -162,7 +162,7 @@ CREATE TABLE assessments (
 
     CONSTRAINT chk_assessment_height
         CHECK (height_cm IS NULL OR height_cm > 0)
-);
+) ENGINE=InnoDB;
 
 -- ==========================================
 -- Table: motor_tests
@@ -179,13 +179,39 @@ CREATE TABLE motor_tests (
         'lower',
         'neutral'
     ) NOT NULL DEFAULT 'higher',
+
+    result_type ENUM(
+        'measurement',
+        'binary'
+    ) NOT NULL DEFAULT 'measurement',
+
+    aggregation_method ENUM(
+        'maximum',
+        'minimum',
+        'sum',
+        'average'
+    ) NOT NULL DEFAULT 'maximum',
+
+    default_attempts TINYINT UNSIGNED NOT NULL DEFAULT 2,
+    min_attempts TINYINT UNSIGNED NOT NULL DEFAULT 2,
+    max_attempts TINYINT UNSIGNED NOT NULL DEFAULT 2,
+
     protocol_name VARCHAR(100),
+    protocol_version VARCHAR(50),
+    protocol_source VARCHAR(255),
     protocol_description TEXT,
     is_active BOOLEAN NOT NULL DEFAULT TRUE,
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
-        ON UPDATE CURRENT_TIMESTAMP
-);
+        ON UPDATE CURRENT_TIMESTAMP,
+
+    CONSTRAINT chk_motor_test_attempts
+        CHECK (
+            min_attempts > 0
+            AND max_attempts >= min_attempts
+            AND default_attempts BETWEEN min_attempts AND max_attempts
+        )
+) ENGINE=InnoDB;
 
 -- ==========================================
 -- Table: assessment_results
@@ -223,4 +249,4 @@ CREATE TABLE assessment_results (
 
     CONSTRAINT chk_attempt_number
         CHECK (attempt_number > 0)
-);
+) ENGINE=InnoDB;

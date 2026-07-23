@@ -45,4 +45,4 @@ CREATE TABLE assessments (
 
     CONSTRAINT chk_assessment_height
         CHECK (height_cm IS NULL OR height_cm > 0)
-);
+) ENGINE=InnoDB;

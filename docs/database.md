@@ -19,8 +19,9 @@ Its main design goals are:
 # Database Management System
 
 * **DBMS:** MySQL
+* **Storage engine:** InnoDB
 * **Language:** SQL
-* **ORM:** SQLAlchemy (planned)
+* **ORM:** SQLAlchemy 2.0
 * **Naming convention:** English, plural table names, and `snake_case`
 
 ---
@@ -142,7 +143,14 @@ Stores the catalog of motor tests available in EduMove.
 | `name` | VARCHAR(150) | Test name |
 | `unit` | VARCHAR(30) | Measurement unit, such as `cm`, `s`, or `acertos` |
 | `result_direction` | ENUM | `higher`, `lower`, or `neutral` |
+| `result_type` | ENUM | `measurement` or `binary` |
+| `aggregation_method` | ENUM | `maximum`, `minimum`, `sum`, or `average` |
+| `default_attempts` | TINYINT UNSIGNED | Default attempt count |
+| `min_attempts` | TINYINT UNSIGNED | Minimum allowed attempt count |
+| `max_attempts` | TINYINT UNSIGNED | Maximum allowed attempt count |
 | `protocol_name` | VARCHAR(100) | Optional protocol name |
+| `protocol_version` | VARCHAR(50) | Optional protocol version |
+| `protocol_source` | VARCHAR(255) | Optional protocol source |
 | `protocol_description` | TEXT | Optional application instructions |
 | `is_active` | BOOLEAN | Active test indicator |
 | `created_at` | TIMESTAMP | Registration date |
@@ -155,6 +163,11 @@ The `result_direction` field defines how a result is interpreted:
 * `neutral`: the value has no direct performance direction.
 
 Motor tests are registered as rows instead of fixed columns. This allows new tests and protocols to be added without altering the database structure.
+
+`result_type` distinguishes continuous measurements from binary success/failure
+trials. `aggregation_method` defines how multiple attempts produce the displayed
+result. Attempt limits support both fixed protocols and configurable tests such as
+ball reception.
 
 ---
 
@@ -208,6 +221,7 @@ The current schema includes the following protections:
 * Unique assessment result by assessment, motor test, and attempt number
 * Foreign keys between all dependent entities
 * Positive values for weight, height, result value, and attempt number
+* Valid motor-test attempt ranges
 * Record deactivation through `is_active` instead of permanent deletion
 * Automatic `created_at` and `updated_at` timestamps
 
@@ -219,15 +233,17 @@ The service layer must also validate that teachers, classes, students, and asses
 
 The initial seed registers the following motor tests:
 
-| Code | Test | Unit | Direction |
-| --- | --- | --- | --- |
-| `HORIZONTAL_JUMP` | Salto horizontal | cm | higher |
-| `SINGLE_LEG_BALANCE` | Equilíbrio unipodal | s | higher |
-| `BALL_RECEPTION` | Recepção de bola | acertos | higher |
-| `THROWING_ACCURACY` | Precisão de arremesso | acertos | higher |
-| `AGILITY` | Agilidade | s | lower |
+| Code | Test | Type | Attempts | Aggregation | Active |
+| --- | --- | --- | --- | --- | --- |
+| `ADAPTED_SIT_AND_REACH` | Adapted sit-and-reach | measurement | 2 | maximum | Yes |
+| `HORIZONTAL_JUMP` | Horizontal jump | measurement | 2 | maximum | Yes |
+| `SINGLE_LEG_BALANCE` | Single-leg balance | measurement | 2 | maximum | Yes |
+| `BALL_RECEPTION` | Ball reception | binary | 3-10 | sum | Yes |
+| `THROWING_ACCURACY` | Throwing accuracy | measurement | 2 | maximum | No |
+| `AGILITY` | Agility | measurement | 2 | minimum | No |
 
-Protocol names and descriptions will be added after the scientific references used by the project are selected.
+The flexibility reference source remains pending. Tests without a selected protocol
+are retained as inactive records.
 
 ---
 
@@ -242,6 +258,8 @@ Protocol names and descriptions will be added after the scientific references us
 | `005_create_assessments.sql` | Creates assessments | Completed |
 | `006_create_motor_tests.sql` | Creates the motor test catalog | Completed |
 | `007_create_assessment_results.sql` | Creates attempts and results | Completed |
+| `008_convert_tables_to_innodb.sql` | Converts tables and restores nine foreign keys | Completed |
+| `009_add_motor_test_protocol_metadata.sql` | Adds result, aggregation, and attempt metadata | Completed |
 
 The migration files preserve the incremental database history. The consolidated `schema.sql` can initialize a new EduMove database and has been successfully validated in a temporary MySQL database.
 
@@ -249,13 +267,16 @@ The migration files preserve the incremental database history. The consolidated 
 
 # Database Testing
 
-The initial integration test validates the complete flow:
+The database integration flow validates:
 
 ```text
 School → Teacher → Class → Student → Assessment → Assessment Result
 ```
 
-The test uses a transaction and `ROLLBACK`, allowing relationships and queries to be validated without keeping fictitious data in the database.
+Transactional checks use `ROLLBACK`, allowing relationships and constraints to be
+validated without keeping fictitious data. The SQLAlchemy model suite currently
+contains 54 passing tests and every ORM model has been compared with the live MySQL
+schema.
 
 ---
 
@@ -263,9 +284,8 @@ The test uses a transaction and `ROLLBACK`, allowing relationships and queries t
 
 The next database tasks are:
 
-* Consolidate the migrations into `schema.sql` or implement a migration runner;
-* Add negative tests for foreign keys, duplicate values, and validation constraints;
-* Create SQLAlchemy models;
-* Configure the application connection to MySQL;
-* Add protocol references and descriptions to the motor test seed;
+* Implement an automated migration runner with safe SQL parsing and migration history;
+* Add service-level validation for school ownership and binary results;
+* Design categorical postural-observation tables;
+* Confirm the scientific source for adapted flexibility reference ranges;
 * Evaluate a class enrollment history table for future versions.

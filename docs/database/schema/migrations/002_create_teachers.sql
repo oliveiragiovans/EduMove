@@ -32,4 +32,4 @@ CREATE TABLE teachers (
     CONSTRAINT fk_teacher_school
         FOREIGN KEY (school_id)
         REFERENCES schools(school_id)
-);
+) ENGINE=InnoDB;

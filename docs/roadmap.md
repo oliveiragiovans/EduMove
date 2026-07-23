@@ -36,17 +36,22 @@ The development strategy focuses on delivering a functional MVP first, while mai
 * [x] Validate the complete database relationship flow
 * [x] Consolidate migrations into `schema.sql`
 * [x] Validate the consolidated schema in a temporary database
+* [x] Standardize all tables on InnoDB
+* [x] Restore and validate all foreign keys
+* [x] Add configurable motor-test protocol metadata
+* [x] Configure SQLAlchemy models
 * [ ] Implement an automated migration runner
-* [ ] Configure SQLAlchemy models
 
 ---
 
 ## Backend
 
-* [ ] Configure project structure
-* [ ] Configure environment variables
-* [ ] Connect application to MySQL
-* [ ] Implement SQLAlchemy ORM
+* [x] Configure project structure
+* [x] Configure environment variables
+* [x] Connect application to MySQL
+* [x] Implement SQLAlchemy ORM
+* [x] Map all seven current database entities
+* [x] Configure motor-test attempts and aggregation rules
 * [ ] Create business rules layer
 * [ ] Implement user authentication
 * [ ] CRUD operations for schools
@@ -72,8 +77,9 @@ The development strategy focuses on delivering a functional MVP first, while mai
 ## Testing
 
 * [x] Initial database integration test
-* [ ] Foreign key and constraint validation tests
-* [ ] Unit tests
+* [x] Foreign key and constraint validation tests
+* [x] ORM model unit tests
+* [ ] Service and business-rule unit tests
 * [ ] Application integration tests
 
 ---
@@ -146,8 +152,8 @@ Future possibilities for EduMove include:
 | Documentation | ✅ Completed |
 | Database Design | ✅ Completed |
 | Initial Database Implementation | ✅ Completed |
-| Database Automation | ⏳ Planned |
-| Backend Development | ⏳ Planned |
+| Database Automation | 🔄 In Progress |
+| Backend Development | 🔄 In Progress |
 | Frontend Development | ⏳ Planned |
 | Testing | 🔄 In Progress |
 | Deployment | ⏳ Planned |
@@ -156,27 +162,30 @@ Future possibilities for EduMove include:
 
 # 📌 Current Sprint
 
-## Sprint 1 — Project Foundation
+## Sprint 2 — Backend Foundation
 
 ### Completed
 
-* [x] Complete project documentation
-* [x] Finalize the initial database structure
-* [x] Create the ERD diagram
-* [x] Prepare the MySQL environment
-* [x] Define the application architecture
-* [x] Create migrations for the seven main tables
-* [x] Create the initial motor test seed
-* [x] Validate the complete database flow with `ROLLBACK`
+* [x] Configure environment loading and MySQL sessions
+* [x] Implement the SQLAlchemy declarative base
+* [x] Implement all current ORM models and relationships
+* [x] Convert the database from MyISAM to InnoDB
+* [x] Restore and validate nine foreign keys
+* [x] Define the initial assessment MVP
+* [x] Configure motor-test attempt and aggregation metadata
+* [x] Add the adapted sit-and-reach test to the MVP seed
+* [x] Reach 54 passing ORM tests
 
 ### Remaining
 
-* [ ] Consolidate schema execution
-* [ ] Add negative database tests
-* [ ] Prepare the backend project structure
+* [ ] Implement the automated migration runner
+* [ ] Create service-layer validation rules
+* [ ] Implement the first CRUD workflow
+* [ ] Design categorical postural observations
 
 ---
 
 # 🎯 Next Milestone
 
-Complete database automation and begin backend development by configuring the Python project structure, MySQL connection, and SQLAlchemy models.
+Implement the service and business-rules layers, beginning with school registration
+and assessment-result validation.

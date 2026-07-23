@@ -1,112 +1,147 @@
 # 🏃 EduMove
 
-> **EduMove** é um sistema em desenvolvimento para auxiliar professores de Educação Física no gerenciamento de avaliações motoras escolares, acompanhamento do desenvolvimento dos alunos e organização de dados pedagógicos.
+O **EduMove** é um sistema em desenvolvimento para auxiliar professores de Educação
+Física no registro de avaliações antropométricas, motoras e posturais, na organização
+de turmas e alunos e no acompanhamento da evolução individual ao longo do tempo.
 
----
+O projeto nasceu de uma necessidade real da área educacional e também integra o
+portfólio de Engenharia de Software de sua desenvolvedora.
 
-## 📌 Sobre o projeto
+## Objetivos
 
-O EduMove nasceu da necessidade de facilitar o registro e o acompanhamento das avaliações motoras realizadas nas aulas de Educação Física.
+- Digitalizar avaliações realizadas no ambiente escolar.
+- Centralizar informações de escolas, professores, turmas e alunos.
+- Preservar o histórico de medidas e resultados.
+- Apoiar o planejamento pedagógico com dados organizados.
+- Aplicar boas práticas de arquitetura, banco de dados e testes.
 
-O sistema busca substituir controles manuais por uma plataforma simples e intuitiva, permitindo que professores registrem avaliações, acompanhem a evolução dos estudantes e gerem relatórios que apoiem o planejamento pedagógico.
+## Escopo do MVP
 
-Além de ser uma solução para um problema real da área da educação, o projeto também faz parte do meu portfólio de Engenharia de Software, com foco no desenvolvimento de aplicações utilizando Python.
+A primeira versão contempla:
 
----
+- cadastro de escolas, professores, turmas e alunos;
+- avaliações com data, peso, altura, IMC calculado e observações;
+- flexibilidade adaptada sem banco;
+- salto horizontal;
+- equilíbrio unipodal;
+- recepção de bola com 3 a 10 lançamentos;
+- histórico individual de avaliações;
+- observações posturais de ombros, coluna, joelhos e pés.
 
-## 🎯 Objetivos
+As observações posturais terão finalidade de triagem pedagógica e não serão
+apresentadas como diagnóstico clínico.
 
-* Digitalizar o processo de avaliação motora escolar.
-* Centralizar informações de alunos e turmas.
-* Facilitar o acompanhamento da evolução dos estudantes.
-* Gerar relatórios e indicadores para auxiliar o planejamento das aulas.
-* Aplicar boas práticas de Engenharia de Software em um projeto real.
+## Estado atual
 
----
+A fundação do backend está implementada:
 
-## ✨ Funcionalidades planejadas
+- configuração por variáveis de ambiente;
+- conexão MySQL com SQLAlchemy;
+- sete tabelas em InnoDB e nove chaves estrangeiras ativas;
+- nove migrations SQL;
+- modelos ORM para todas as entidades atuais;
+- catálogo configurável de testes motores;
+- seed do MVP com protocolos e limites de tentativas;
+- 54 testes automatizados aprovados.
 
-### Versão 1.0
+Os próximos marcos são a camada de serviços e regras de negócio, os CRUDs e a
+interface Streamlit.
 
-* Cadastro de professores
-* Cadastro de turmas
-* Cadastro de alunos
-* Registro de avaliações motoras
-* Histórico de avaliações
-* Consulta por aluno
+## Tecnologias
 
-### Futuras versões
+- Python
+- Streamlit
+- MySQL com InnoDB
+- SQLAlchemy 2.0
+- PyMySQL
+- python-dotenv
+- pytest
+- Pandas
+- Matplotlib / Plotly
+- Git e GitHub
 
-* Dashboard com indicadores
-* Geração de relatórios em PDF
-* Exportação para Excel
-* Importação de listas de alunos
-* Comparação da evolução motora
-* Perfis de acesso
-* Integração com APIs
-* Inteligência Artificial para apoio na interpretação dos resultados
-
----
-
-## 🛠️ Tecnologias
-
-* Python
-* Streamlit
-* MySQL
-* SQLAlchemy
-* Pandas
-* Matplotlib
-* Git
-* GitHub
-
----
-
-## 📂 Estrutura do projeto
+## Estrutura
 
 ```text
 EduMove/
-│
 ├── docs/
-├── database/
+│   ├── database/
+│   │   ├── schema/
+│   │   └── seeds/
+│   ├── assessment_mvp.md
+│   ├── architecture.md
+│   ├── business_rules.md
+│   ├── database.md
+│   ├── requirements.md
+│   └── roadmap.md
 ├── src/
+│   ├── business_rules/
+│   ├── config/
+│   ├── controllers/
+│   ├── models/
+│   ├── services/
+│   ├── utils/
+│   └── views/
 ├── tests/
-├── assets/
-├── README.md
-└── requirements.txt
+│   └── models/
+├── .env.example
+├── app.py
+├── requirements.txt
+└── README.md
 ```
 
----
+## Configuração local
 
-## 🚀 Roadmap
+1. Crie e ative um ambiente virtual:
 
-* [ ] Planejamento do projeto
-* [ ] Modelagem do banco de dados
-* [ ] Configuração do ambiente
-* [ ] Cadastro de turmas
-* [ ] Cadastro de alunos
-* [ ] Cadastro de avaliações
-* [ ] Histórico de avaliações
-* [ ] Dashboard
-* [ ] Relatórios em PDF
-* [ ] Testes
-* [ ] Publicação da versão 1.0
+   ```powershell
+   python -m venv .venv
+   .\.venv\Scripts\Activate.ps1
+   ```
 
----
+2. Instale as dependências:
 
-## 📖 Público-alvo
+   ```powershell
+   python -m pip install -r requirements.txt
+   ```
 
-Professores de Educação Física da Educação Infantil e Ensino Fundamental que desejam organizar e acompanhar avaliações motoras de forma digital.
+3. Copie `.env.example` para `.env` e informe os dados do MySQL.
 
----
+4. Para um banco novo, execute:
 
-## 👩‍💻 Desenvolvedora
+   - `docs/database/schema/schema.sql`;
+   - `docs/database/seeds/seed.sql`.
+
+5. Execute os testes:
+
+   ```powershell
+   python -m pytest -q
+   ```
+
+O arquivo `.env` é ignorado pelo Git e não deve ser versionado.
+
+## Documentação
+
+- [Escopo das avaliações do MVP](docs/assessment_mvp.md)
+- [Arquitetura](docs/architecture.md)
+- [Regras de negócio](docs/business_rules.md)
+- [Banco de dados](docs/database.md)
+- [Requisitos](docs/requirements.md)
+- [Roadmap](docs/roadmap.md)
+
+## Público-alvo
+
+Professores de Educação Física da Educação Infantil e do Ensino Fundamental que
+desejam organizar avaliações e acompanhar o desenvolvimento dos alunos de forma
+digital.
+
+## Desenvolvedora
 
 **Giovana Luciano de Oliveira**
 
-Graduada em Educação Física e estudante de Engenharia de Software, desenvolvendo projetos voltados à tecnologia aplicada à educação.
+Graduada em Educação Física e estudante de Engenharia de Software, desenvolvendo
+projetos voltados à tecnologia aplicada à educação.
 
----
+## Status
 
-## 📌 Status
-
-🚧 Projeto em desenvolvimento.
+🚧 Backend em desenvolvimento.

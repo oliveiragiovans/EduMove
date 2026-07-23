@@ -8,41 +8,126 @@ INSERT INTO motor_tests (
     code,
     name,
     unit,
-    result_direction
+    result_direction,
+    result_type,
+    aggregation_method,
+    default_attempts,
+    min_attempts,
+    max_attempts,
+    protocol_name,
+    protocol_version,
+    protocol_source,
+    protocol_description,
+    is_active
 )
 VALUES
+    (
+        'ADAPTED_SIT_AND_REACH',
+        'Sentar-e-alcançar adaptado',
+        'cm',
+        'higher',
+        'measurement',
+        'maximum',
+        2,
+        2,
+        2,
+        'Sentar-e-alcançar adaptado sem banco',
+        'MVP 1.0',
+        NULL,
+        'Realizado no chão com fita métrica. Registra-se a melhor de duas tentativas.',
+        TRUE
+    ),
     (
         'HORIZONTAL_JUMP',
         'Salto horizontal',
         'cm',
-        'higher'
+        'higher',
+        'measurement',
+        'maximum',
+        2,
+        2,
+        2,
+        'Habilidades Motoras Fundamentais - Livro 1',
+        'Livro 1',
+        'Fernando Copetti e Nadia Cristina Valentini',
+        'Registra-se em centímetros a melhor de duas tentativas.',
+        TRUE
     ),
     (
         'SINGLE_LEG_BALANCE',
         'Equilíbrio unipodal',
         's',
-        'higher'
+        'higher',
+        'measurement',
+        'maximum',
+        2,
+        2,
+        2,
+        'Habilidades Motoras Fundamentais - Livro 1',
+        'Livro 1',
+        'Fernando Copetti e Nadia Cristina Valentini',
+        'Registra-se o melhor tempo de duas tentativas, limitado a 30 segundos.',
+        TRUE
     ),
     (
         'BALL_RECEPTION',
         'Recepção de bola',
         'acertos',
-        'higher'
+        'higher',
+        'binary',
+        'sum',
+        3,
+        3,
+        10,
+        'Roteiro de avaliação escolar',
+        'MVP 1.0',
+        'Adaptado de Habilidades Motoras Fundamentais - Livro 1',
+        'O professor escolhe de 3 a 10 lançamentos e registra cada recepção como acerto ou erro.',
+        TRUE
     ),
     (
         'THROWING_ACCURACY',
         'Precisão de arremesso',
         'acertos',
-        'higher'
+        'higher',
+        'measurement',
+        'maximum',
+        2,
+        2,
+        2,
+        NULL,
+        NULL,
+        NULL,
+        NULL,
+        FALSE
     ),
     (
         'AGILITY',
         'Agilidade',
         's',
-        'lower'
+        'lower',
+        'measurement',
+        'minimum',
+        2,
+        2,
+        2,
+        NULL,
+        NULL,
+        NULL,
+        NULL,
+        FALSE
     )
 ON DUPLICATE KEY UPDATE
     name = VALUES(name),
     unit = VALUES(unit),
     result_direction = VALUES(result_direction),
-    is_active = TRUE;
+    result_type = VALUES(result_type),
+    aggregation_method = VALUES(aggregation_method),
+    default_attempts = VALUES(default_attempts),
+    min_attempts = VALUES(min_attempts),
+    max_attempts = VALUES(max_attempts),
+    protocol_name = VALUES(protocol_name),
+    protocol_version = VALUES(protocol_version),
+    protocol_source = VALUES(protocol_source),
+    protocol_description = VALUES(protocol_description),
+    is_active = VALUES(is_active);

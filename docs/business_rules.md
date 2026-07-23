@@ -152,6 +152,31 @@ Registros importantes devem ser inativados, evitando exclusões permanentes.
 
 ---
 
+# 9. Protocolos de Avaliação
+
+## BR-026
+
+Os testes de flexibilidade adaptada, salto horizontal e equilíbrio unipodal possuem
+duas tentativas no MVP, com registro do melhor resultado.
+
+## BR-027
+
+Na recepção de bola, o professor escolhe entre 3 e 10 lançamentos. Cada lançamento
+deve ser registrado individualmente como acerto ou erro, e o resultado final deve
+mostrar acertos sobre o total de lançamentos.
+
+## BR-028
+
+O IMC deve ser calculado a partir do peso e da altura registrados na avaliação e não
+armazenado como medida independente.
+
+## BR-029
+
+As observações posturais de ombros, coluna, joelhos e pés possuem finalidade de
+triagem pedagógica e não devem ser apresentadas como diagnóstico clínico.
+
+---
+
 # Future Versions
 
 ## V1.1

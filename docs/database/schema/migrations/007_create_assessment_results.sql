@@ -43,4 +43,4 @@ CREATE TABLE assessment_results (
 
     CONSTRAINT chk_attempt_number
         CHECK (attempt_number > 0)
-);
+) ENGINE=InnoDB;

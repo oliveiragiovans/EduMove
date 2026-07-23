@@ -54,4 +54,4 @@ CREATE TABLE classes (
         section,
         academic_year
     )
-);
+) ENGINE=InnoDB;

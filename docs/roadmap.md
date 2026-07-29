@@ -50,7 +50,7 @@ The development strategy focuses on delivering a functional MVP first, while mai
 * [x] Configure environment variables
 * [x] Connect application to MySQL
 * [x] Implement SQLAlchemy ORM
-* [x] Map all seven current database entities
+* [x] Map all nine current database entities
 * [x] Configure motor-test attempts and aggregation rules
 * [x] Establish the business-rules layer with school validation
 * [ ] Implement the remaining domain validation rules
@@ -60,7 +60,8 @@ The development strategy focuses on delivering a functional MVP first, while mai
 * [x] CRUD operations for classes
 * [x] CRUD operations for students
 * [x] CRUD operations for assessments
-* [ ] Motor test result management
+* [x] Motor test result management
+* [x] Categorical postural observation management
 
 ---
 
@@ -187,18 +188,23 @@ Future possibilities for EduMove include:
 * [x] Implement the assessment CRUD with historical class snapshots
 * [x] Validate anthropometric measurements and assessment chronology
 * [x] Validate the assessment CRUD transactionally against MySQL
-* [x] Reach 237 passing automated tests
+* [x] Implement protocol-aware motor-test attempt management
+* [x] Preserve binary results as successes over total attempts
+* [x] Validate motor-result aggregation transactionally against MySQL
+* [x] Create original reference boards for shoulders, spine, knees, and footprints
+* [x] Add the 20-option educational posture catalog
+* [x] Preserve replaced postural choices as inactive history
+* [x] Validate the postural workflow transactionally against MySQL
+* [x] Reach 322 passing automated tests
 
 ### Remaining
 
 * [ ] Implement the automated migration runner
-* [ ] Create the remaining service-layer validation rules
-* [ ] Design categorical postural observations
-* [ ] Implement assessment-result management
+* [ ] Implement user authentication
 
 ---
 
 # 🎯 Next Milestone
 
-Implement assessment-result validation, attempt management, and protocol-based
-aggregation.
+Implement authentication and begin the Streamlit management interface, including
+the guided postural-observation form.

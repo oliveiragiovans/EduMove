@@ -190,6 +190,55 @@ Stores individual attempts and results for each motor test performed during an a
 
 The combination of assessment, motor test, and attempt number must be unique. This prevents the same attempt from being registered twice while allowing multiple attempts for the same test.
 
+The service layer saves a complete attempt set for each test. Corrections reuse the
+same attempt numbers, reactivate previously retained rows when needed, and logically
+deactivate attempts beyond the newly selected total. Aggregated values are calculated
+from active attempts and are not stored in an additional column.
+
+---
+
+## Postural Observation Options
+
+Stores the configurable educational posture catalog used by the assessment form.
+
+| Field | Type | Description |
+| --- | --- | --- |
+| `postural_option_id` | INT | Primary key |
+| `code` | VARCHAR(80) | Unique internal option code |
+| `region` | ENUM | `shoulders`, `spine`, `knees`, or `feet` |
+| `view_position` | ENUM | `frontal`, `lateral`, or `reference` |
+| `label` | VARCHAR(120) | Pedagogical display label |
+| `description` | VARCHAR(255) | Optional explanatory text |
+| `reference_image_path` | VARCHAR(255) | Optional application-asset path |
+| `sort_order` | TINYINT UNSIGNED | Display order within the group |
+| `is_active` | BOOLEAN | Active catalog option indicator |
+| `created_at` | TIMESTAMP | Registration date |
+| `updated_at` | TIMESTAMP | Last update date |
+
+The initial seed contains 20 options across shoulders, spine, knees, and feet. The
+wording records visible appearances for educational screening and does not represent
+a clinical diagnosis.
+
+---
+
+## Assessment Postural Observations
+
+Stores each postural choice and its optional note within an assessment.
+
+| Field | Type | Description |
+| --- | --- | --- |
+| `postural_observation_id` | INT | Primary key |
+| `assessment_id` | INT | Foreign key → `assessments.assessment_id` |
+| `postural_option_id` | INT | Foreign key → `postural_observation_options.postural_option_id` |
+| `notes` | VARCHAR(255) | Optional teacher observation |
+| `is_active` | BOOLEAN | Current or historical selection indicator |
+| `created_at` | TIMESTAMP | Registration date |
+| `updated_at` | TIMESTAMP | Last update date |
+
+The assessment and option pair is unique. The service additionally keeps only one
+active choice per region and viewing position, logically deactivating a replaced
+choice so its history remains available.
+
 ---
 
 # Entity Relationship Diagram
@@ -205,6 +254,8 @@ erDiagram
     CLASSES ||--o{ ASSESSMENTS : contextualizes
     ASSESSMENTS ||--o{ ASSESSMENT_RESULTS : contains
     MOTOR_TESTS ||--o{ ASSESSMENT_RESULTS : measures
+    ASSESSMENTS ||--o{ ASSESSMENT_POSTURAL_OBSERVATIONS : contains
+    POSTURAL_OBSERVATION_OPTIONS ||--o{ ASSESSMENT_POSTURAL_OBSERVATIONS : classifies
 ```
 
 The `assessment_results` table creates a flexible many-to-many relationship between assessments and motor tests. Multiple rows may exist for the same assessment and test when the protocol allows more than one attempt.
@@ -220,6 +271,8 @@ The current schema includes the following protections:
 * Unique motor test code
 * Unique class by school, grade, section, and academic year
 * Unique assessment result by assessment, motor test, and attempt number
+* Unique postural option by internal code
+* Unique postural selection by assessment and option
 * Foreign keys between all dependent entities
 * Positive values for weight, height, result value, and attempt number
 * Valid motor-test attempt ranges
@@ -262,6 +315,7 @@ are retained as inactive records.
 | `008_convert_tables_to_innodb.sql` | Converts tables and restores nine foreign keys | Completed |
 | `009_add_motor_test_protocol_metadata.sql` | Adds result, aggregation, and attempt metadata | Completed |
 | `010_add_school_active_status.sql` | Adds logical deactivation for schools | Completed |
+| `011_create_postural_observations.sql` | Adds the posture catalog and assessment selections | Completed |
 
 The migration files preserve the incremental database history. The consolidated `schema.sql` can initialize a new EduMove database and has been successfully validated in a temporary MySQL database.
 
@@ -272,14 +326,14 @@ The migration files preserve the incremental database history. The consolidated 
 The database integration flow validates:
 
 ```text
-School → Teacher → Class → Student → Assessment → Assessment Result
+School → Teacher → Class → Student → Assessment → Result / Postural Observation
 ```
 
 Transactional checks use `ROLLBACK`, allowing relationships and constraints to be
 validated without keeping fictitious data. The automated project suite currently
-contains 237 passing tests, every ORM model has been compared with the live MySQL
-schema, and the class, student, and assessment CRUDs have been validated
-transactionally against MySQL.
+contains 322 passing tests, every ORM model has been compared with the live MySQL
+schema, and the class, student, assessment, motor-result, and postural-observation
+workflows have been validated transactionally against MySQL.
 
 ---
 
@@ -288,7 +342,5 @@ transactionally against MySQL.
 The next database tasks are:
 
 * Implement an automated migration runner with safe SQL parsing and migration history;
-* Add service-level validation for binary results;
-* Design categorical postural-observation tables;
 * Confirm the scientific source for adapted flexibility reference ranges;
 * Evaluate a class enrollment history table for future versions.

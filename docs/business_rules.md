@@ -243,6 +243,63 @@ Na recepção de bola, o professor escolhe entre 3 e 10 lançamentos. Cada lanç
 deve ser registrado individualmente como acerto ou erro, e o resultado final deve
 mostrar acertos sobre o total de lançamentos.
 
+## BR-043
+
+As tentativas de um teste motor devem ser enviadas como um conjunto completo. Testes
+com protocolo fixo exigem a quantidade configurada, enquanto protocolos variáveis
+devem respeitar seus limites mínimo e máximo.
+
+## BR-044
+
+Resultados binários aceitam somente acerto ou erro, persistidos numericamente como
+1 ou 0. O resumo deve preservar e exibir tanto a quantidade de acertos quanto o
+total de tentativas ativas.
+
+## BR-045
+
+O resultado resumido de um teste deve ser calculado pelo método configurado em seu
+protocolo: máximo, mínimo, soma ou média. O valor agregado é derivado e não deve ser
+duplicado como dado de origem.
+
+## BR-046
+
+O equilíbrio unipodal aceita no máximo 30 segundos por tentativa. Correções devem
+reutilizar os registros existentes, e tentativas removidas do conjunto devem ser
+desativadas em vez de excluídas.
+
+## BR-047
+
+As observações posturais possuem finalidade de triagem pedagógica. Rótulos,
+descrições e mensagens da interface não devem apresentar as opções como diagnóstico
+clínico.
+
+## BR-048
+
+Cada avaliação pode possuir somente uma observação postural ativa por combinação de
+região corporal e posição de visualização. Ao selecionar outra opção no mesmo
+contexto, a escolha anterior deve ser desativada, e não excluída.
+
+## BR-049
+
+Observações de posições diferentes são independentes. Uma escolha frontal não deve
+substituir uma escolha lateral da mesma região corporal.
+
+## BR-050
+
+Somente avaliações e opções posturais ativas podem receber novas escolhas.
+Avaliações históricas inativas continuam disponíveis para consulta.
+
+## BR-051
+
+Cada opção do catálogo pode indicar uma imagem de referência armazenada como ativo
+da aplicação. O banco deve guardar apenas o caminho e os metadados, nunca o conteúdo
+binário da imagem.
+
+## BR-052
+
+Observações livres associadas a uma escolha postural são opcionais, devem ter os
+espaços externos removidos e podem conter no máximo 255 caracteres.
+
 ## BR-028
 
 O IMC deve ser calculado a partir do peso e da altura registrados na avaliação e não

@@ -8,6 +8,7 @@ from sqlalchemy import (
     Boolean,
     CheckConstraint,
     ForeignKey,
+    Integer,
     Numeric,
     String,
     TIMESTAMP,
@@ -65,7 +66,7 @@ class AssessmentResult(Base):
         nullable=False,
     )
     attempt_number: Mapped[int] = mapped_column(
-        TINYINT(unsigned=True),
+        Integer().with_variant(TINYINT(unsigned=True), "mysql"),
         nullable=False,
         server_default=text("1"),
     )

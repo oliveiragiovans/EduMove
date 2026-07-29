@@ -21,6 +21,7 @@ from src.models.base import Base
 
 if TYPE_CHECKING:
     from src.models.assessment_result import AssessmentResult
+    from src.models.postural_observation import AssessmentPosturalObservation
     from src.models.school_class import SchoolClass
     from src.models.student import Student
     from src.models.teacher import Teacher
@@ -83,6 +84,9 @@ class Assessment(Base):
     school_class: Mapped["SchoolClass"] = relationship(back_populates="assessments")
     results: Mapped[list["AssessmentResult"]] = relationship(
         back_populates="assessment"
+    )
+    postural_observations: Mapped[list["AssessmentPosturalObservation"]] = (
+        relationship(back_populates="assessment")
     )
 
     @property

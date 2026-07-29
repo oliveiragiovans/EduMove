@@ -1,7 +1,7 @@
 """Tests for the MotorTest SQLAlchemy model."""
 
 from sqlalchemy import CheckConstraint, Enum, Text
-from sqlalchemy.dialects.mysql import TINYINT
+from sqlalchemy.dialects.mysql import TINYINT, dialect
 
 from src.models.motor_test import (
     AggregationMethod,
@@ -94,9 +94,11 @@ def test_motor_test_aggregation_values_match_schema() -> None:
 
 def test_motor_test_attempt_limits_match_schema() -> None:
     columns = MotorTest.__table__.c
+    mysql_dialect = dialect()
 
     assert all(
-        isinstance(column.type, TINYINT) and column.type.unsigned is True
+        isinstance(column.type.dialect_impl(mysql_dialect), TINYINT)
+        and column.type.dialect_impl(mysql_dialect).unsigned is True
         for column in (
             columns.default_attempts,
             columns.min_attempts,

@@ -70,7 +70,7 @@ The MVP includes the following body regions:
 When applicable, observations must be grouped by viewing position so that frontal
 and lateral findings are not mixed.
 
-### Draft Categories
+### Implemented Categories
 
 | Region | View | Options |
 | --- | --- | --- |
@@ -82,19 +82,35 @@ and lateral findings are not mixed.
 | Knees | Lateral | Neutral, semiflexed appearance, hyperextended appearance |
 | Feet | Reference view | Neutral arch, flat-arch appearance, high-arch appearance |
 
-The final interface should use clear reference illustrations beside these options.
-Image rights and attribution must be confirmed before reusing material from external
-documents. Original, consistent illustrations are preferred for the application.
+Four original and consistent reference boards were created for the application,
+avoiding the reuse of images from external documents:
+
+- `assets/posture/shoulders-reference.png`;
+- `assets/posture/spine-reference.png`;
+- `assets/posture/knees-reference.png`;
+- `assets/posture/feet-footprints-reference.png`.
+
+The feet board uses footprints so arch-contact differences remain visible during
+the assessment.
 
 ## Data Modeling Implications
 
 - `assessments` stores the assessment event, date, anthropometric measurements, and
   general notes.
 - `assessment_results` stores attempts and quantitative motor-test results.
-- Configurable ball-reception throws require a representation for binary trials and
-  an aggregation rule.
-- Postural observations require a separate categorical structure rather than the
-  numeric `assessment_results` table.
+- Attempts are submitted as a complete set for one test, allowing fixed protocols
+  and the selected 3-to-10 reception throws to be validated before persistence.
+- Existing attempt rows are updated or logically deactivated when a set is
+  corrected, preserving stable record identities.
+- Result summaries use the aggregation method configured in `motor_tests`.
+- Binary reception trials are stored as `1` for success and `0` for failure, while
+  the interface displays successful receptions over the active attempt count.
+- `postural_observation_options` stores the configurable educational catalog,
+  including region, view, explanatory text, order, and reference-image path.
+- `assessment_postural_observations` stores the choices and optional notes without
+  mixing them with numeric `assessment_results`.
+- A correction deactivates the previous choice in the same region and view instead
+  of deleting it; choices in other views remain independent.
 - Reference images should be application assets; the database should store only
   their identifiers or paths and descriptive metadata.
 - Protocol names, versions, and sources must be stored so historical results remain

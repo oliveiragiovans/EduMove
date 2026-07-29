@@ -37,8 +37,8 @@ A fundação do backend está implementada:
 
 - configuração por variáveis de ambiente;
 - conexão MySQL com SQLAlchemy;
-- sete tabelas em InnoDB e nove chaves estrangeiras ativas;
-- dez migrations SQL;
+- nove tabelas em InnoDB e onze chaves estrangeiras ativas;
+- onze migrations SQL;
 - modelos ORM para todas as entidades atuais;
 - catálogo configurável de testes motores;
 - seed do MVP com protocolos e limites de tentativas;
@@ -50,10 +50,16 @@ A fundação do backend está implementada:
 - bloqueio da desativação de turmas que ainda possuem alunos ativos;
 - avaliações com data, medidas opcionais, observações e IMC calculado;
 - preservação automática da turma do aluno no momento da avaliação;
-- 237 testes automatizados aprovados.
+- registro e correção das tentativas dos testes motores;
+- agregação automática por máximo, mínimo, soma ou média;
+- recepção de bola preservada como acertos sobre o total de lançamentos;
+- catálogo de 20 opções posturais para ombros, coluna, joelhos e pés;
+- seleção postural por região e vista, com correção sem perda do histórico;
+- quatro pranchas ilustrativas originais vinculadas ao catálogo;
+- 322 testes automatizados aprovados.
 
-Os próximos marcos são implementar as regras e o gerenciamento dos resultados dos
-testes motores, estruturar as observações posturais e iniciar a interface Streamlit.
+Os próximos marcos são implementar autenticação e iniciar a interface Streamlit,
+incluindo o formulário guiado pelas imagens posturais.
 
 ## Tecnologias
 
@@ -72,6 +78,8 @@ testes motores, estruturar as observações posturais e iniciar a interface Stre
 
 ```text
 EduMove/
+├── assets/
+│   └── posture/
 ├── docs/
 │   ├── database/
 │   │   ├── schema/

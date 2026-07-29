@@ -195,5 +195,5 @@ Current Version: Backend Foundation
 
 Next Step:
 
-* Assessment-result service and business rules
-* Postural-observation data model
+* User authentication
+* Initial Streamlit management interface with guided postural observations

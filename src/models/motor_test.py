@@ -8,6 +8,7 @@ from sqlalchemy import (
     Boolean,
     CheckConstraint,
     Enum,
+    Integer,
     String,
     Text,
     TIMESTAMP,
@@ -100,17 +101,17 @@ class MotorTest(Base):
         server_default=text("'maximum'"),
     )
     default_attempts: Mapped[int] = mapped_column(
-        TINYINT(unsigned=True),
+        Integer().with_variant(TINYINT(unsigned=True), "mysql"),
         nullable=False,
         server_default=text("2"),
     )
     min_attempts: Mapped[int] = mapped_column(
-        TINYINT(unsigned=True),
+        Integer().with_variant(TINYINT(unsigned=True), "mysql"),
         nullable=False,
         server_default=text("2"),
     )
     max_attempts: Mapped[int] = mapped_column(
-        TINYINT(unsigned=True),
+        Integer().with_variant(TINYINT(unsigned=True), "mysql"),
         nullable=False,
         server_default=text("2"),
     )

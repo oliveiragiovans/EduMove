@@ -1,7 +1,7 @@
 """Tests for the AssessmentResult SQLAlchemy model."""
 
 from sqlalchemy import CheckConstraint, Numeric, UniqueConstraint, inspect
-from sqlalchemy.dialects.mysql import TINYINT
+from sqlalchemy.dialects.mysql import TINYINT, dialect
 
 from src.models.assessment import Assessment
 from src.models.assessment_result import AssessmentResult
@@ -41,9 +41,10 @@ def test_assessment_result_required_and_optional_fields_match_schema() -> None:
 
 def test_assessment_result_value_and_attempt_types_match_schema() -> None:
     columns = AssessmentResult.__table__.c
+    mysql_type = columns.attempt_number.type.dialect_impl(dialect())
 
-    assert isinstance(columns.attempt_number.type, TINYINT)
-    assert columns.attempt_number.type.unsigned is True
+    assert isinstance(mysql_type, TINYINT)
+    assert mysql_type.unsigned is True
     assert isinstance(columns.result_value.type, Numeric)
     assert (
         columns.result_value.type.precision,

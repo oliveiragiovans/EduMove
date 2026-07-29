@@ -208,7 +208,7 @@ The database and ORM foundations are implemented. The application currently incl
 
 * Environment-based configuration
 * SQLAlchemy engine and transactional session management
-* Seven mapped database entities
+* Nine mapped database entities
 * Bidirectional ORM relationships
 * Configurable motor-test protocols and attempt limits
 * InnoDB foreign-key enforcement
@@ -222,11 +222,14 @@ The database and ORM foundations are implemented. The application currently incl
 * Safe student transfer between active classes
 * School-scoped assessment management with historical class snapshots
 * Anthropometric normalization and calculated BMI
+* Protocol-aware motor-test attempt management
+* Result summaries using maximum, minimum, sum, or average
+* Educational postural-option catalog with reference-image paths
+* School-scoped postural selections with region/view conflict replacement
+* Logical deactivation preserving postural-observation history
 * Automated model, business-rule, and service tests
 
 Current development priorities:
 
-* Assessment-result validation and aggregation
-* Categorical postural-observation modeling
 * User authentication
-* Streamlit interface implementation
+* Streamlit interface implementation with guided postural forms

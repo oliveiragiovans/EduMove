@@ -42,16 +42,18 @@ A fundação do backend está implementada:
 - modelos ORM para todas as entidades atuais;
 - catálogo configurável de testes motores;
 - seed do MVP com protocolos e limites de tentativas;
-- CRUDs implementados para escolas, professores, turmas e alunos;
+- CRUDs implementados para escolas, professores, turmas, alunos e avaliações;
 - validação e normalização de dados escolares, docentes, das turmas e dos alunos;
 - isolamento de professores por escola e administrador ativo único;
 - validação do professor responsável dentro da escola da turma;
 - busca de alunos por nome e turma, com transferência segura entre turmas;
 - bloqueio da desativação de turmas que ainda possuem alunos ativos;
-- 182 testes automatizados aprovados.
+- avaliações com data, medidas opcionais, observações e IMC calculado;
+- preservação automática da turma do aluno no momento da avaliação;
+- 237 testes automatizados aprovados.
 
-Os próximos marcos são expandir serviços e CRUDs para avaliações,
-implementar as regras dos resultados de avaliação e iniciar a interface Streamlit.
+Os próximos marcos são implementar as regras e o gerenciamento dos resultados dos
+testes motores, estruturar as observações posturais e iniciar a interface Streamlit.
 
 ## Tecnologias
 

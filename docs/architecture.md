@@ -220,11 +220,12 @@ The database and ORM foundations are implemented. The application currently incl
 * Class normalization and responsible-teacher validation
 * School-scoped student management and name search
 * Safe student transfer between active classes
+* School-scoped assessment management with historical class snapshots
+* Anthropometric normalization and calculated BMI
 * Automated model, business-rule, and service tests
 
 Current development priorities:
 
-* Assessment and assessment-result services
 * Assessment-result validation and aggregation
 * Categorical postural-observation modeling
 * User authentication

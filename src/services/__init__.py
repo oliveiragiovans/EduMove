@@ -1,5 +1,6 @@
 """EduMove application services."""
 
+from src.services.assessment_service import AssessmentService
 from src.services.exceptions import (
     ConflictError,
     EntityNotFoundError,
@@ -11,6 +12,7 @@ from src.services.student_service import StudentService
 from src.services.teacher_service import TeacherService
 
 __all__ = [
+    "AssessmentService",
     "ConflictError",
     "EntityNotFoundError",
     "SchoolService",

@@ -277,9 +277,9 @@ School → Teacher → Class → Student → Assessment → Assessment Result
 
 Transactional checks use `ROLLBACK`, allowing relationships and constraints to be
 validated without keeping fictitious data. The automated project suite currently
-contains 182 passing tests, every ORM model has been compared with the live MySQL
-schema, and the class and student CRUDs have been validated transactionally against
-MySQL.
+contains 237 passing tests, every ORM model has been compared with the live MySQL
+schema, and the class, student, and assessment CRUDs have been validated
+transactionally against MySQL.
 
 ---
 
@@ -288,7 +288,6 @@ MySQL.
 The next database tasks are:
 
 * Implement an automated migration runner with safe SQL parsing and migration history;
-* Add assessment services with school-ownership validation;
 * Add service-level validation for binary results;
 * Design categorical postural-observation tables;
 * Confirm the scientific source for adapted flexibility reference ranges;

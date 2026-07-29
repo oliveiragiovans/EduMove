@@ -161,6 +161,30 @@ Uma avaliação pode possuir diversos testes motores.
 
 Uma avaliação nunca deve ser excluída automaticamente.
 
+## BR-039
+
+Uma nova avaliação exige escola, aluno, professor e turma ativos. O aluno e o
+professor devem pertencer à escola informada, e a turma da avaliação deve ser
+capturada automaticamente a partir da turma atual do aluno.
+
+## BR-040
+
+A data da avaliação não pode estar no futuro nem ser anterior ao nascimento do
+aluno. Peso e altura são opcionais, mas, quando informados, devem ser positivos e
+normalizados com duas casas decimais.
+
+## BR-041
+
+Aluno, turma e professor identificam o contexto histórico da avaliação. O CRUD
+permite corrigir o professor, a data, as medidas e as observações, mas não permite
+trocar o aluno ou a turma de uma avaliação existente.
+
+## BR-042
+
+Consultas e alterações de avaliações devem ser limitadas a uma escola ativa.
+Avaliações históricas continuam consultáveis após a desativação do aluno, professor
+ou turma relacionados.
+
 ---
 
 # 6. Motor Tests

@@ -195,6 +195,5 @@ Current Version: Backend Foundation
 
 Next Step:
 
-* Assessment service and CRUD workflow
-* Assessment-result business rules
+* Assessment-result service and business rules
 * Postural-observation data model

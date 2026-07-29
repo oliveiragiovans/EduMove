@@ -15,6 +15,7 @@ def test_school_uses_expected_table_and_columns() -> None:
         "phone",
         "city",
         "state",
+        "is_active",
         "created_at",
         "updated_at",
     }
@@ -34,6 +35,7 @@ def test_school_required_and_optional_fields_match_schema() -> None:
     assert columns.name.nullable is False
     assert columns.city.nullable is False
     assert columns.state.nullable is False
+    assert columns.is_active.nullable is False
 
     assert columns.cnpj.nullable is True
     assert columns.email.nullable is True
@@ -61,6 +63,7 @@ def test_school_cnpj_is_unique() -> None:
 def test_school_timestamps_are_managed_by_database() -> None:
     columns = School.__table__.c
 
+    assert str(columns.is_active.server_default.arg) == "1"
     assert columns.created_at.nullable is False
     assert columns.created_at.server_default is not None
     assert columns.updated_at.nullable is False

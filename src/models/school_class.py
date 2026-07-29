@@ -9,6 +9,7 @@ from sqlalchemy import (
     CHAR,
     Enum,
     ForeignKey,
+    Integer,
     TIMESTAMP,
     UniqueConstraint,
     text,
@@ -65,7 +66,10 @@ class SchoolClass(Base):
     teacher_id: Mapped[int | None] = mapped_column(
         ForeignKey("teachers.teacher_id", name="fk_class_teacher"),
     )
-    grade_number: Mapped[int] = mapped_column(TINYINT, nullable=False)
+    grade_number: Mapped[int] = mapped_column(
+        Integer().with_variant(TINYINT, "mysql"),
+        nullable=False,
+    )
     education_level: Mapped[EducationLevel] = mapped_column(
         Enum(
             EducationLevel,
@@ -76,7 +80,10 @@ class SchoolClass(Base):
         nullable=False,
     )
     section: Mapped[str] = mapped_column(CHAR(1), nullable=False)
-    academic_year: Mapped[int] = mapped_column(YEAR, nullable=False)
+    academic_year: Mapped[int] = mapped_column(
+        Integer().with_variant(YEAR, "mysql"),
+        nullable=False,
+    )
     shift: Mapped[SchoolShift] = mapped_column(
         Enum(
             SchoolShift,

@@ -52,12 +52,13 @@ The development strategy focuses on delivering a functional MVP first, while mai
 * [x] Implement SQLAlchemy ORM
 * [x] Map all seven current database entities
 * [x] Configure motor-test attempts and aggregation rules
-* [ ] Create business rules layer
+* [x] Establish the business-rules layer with school validation
+* [ ] Implement the remaining domain validation rules
 * [ ] Implement user authentication
-* [ ] CRUD operations for schools
-* [ ] CRUD operations for teachers
-* [ ] CRUD operations for classes
-* [ ] CRUD operations for students
+* [x] CRUD operations for schools
+* [x] CRUD operations for teachers
+* [x] CRUD operations for classes
+* [x] CRUD operations for students
 * [ ] CRUD operations for assessments
 * [ ] Motor test result management
 
@@ -79,7 +80,7 @@ The development strategy focuses on delivering a functional MVP first, while mai
 * [x] Initial database integration test
 * [x] Foreign key and constraint validation tests
 * [x] ORM model unit tests
-* [ ] Service and business-rule unit tests
+* [x] Service and business-rule unit tests
 * [ ] Application integration tests
 
 ---
@@ -174,18 +175,27 @@ Future possibilities for EduMove include:
 * [x] Define the initial assessment MVP
 * [x] Configure motor-test attempt and aggregation metadata
 * [x] Add the adapted sit-and-reach test to the MVP seed
-* [x] Reach 54 passing ORM tests
+* [x] Add logical deactivation to schools with migration 010
+* [x] Implement the first CRUD workflow for schools
+* [x] Implement the teacher CRUD with school isolation
+* [x] Enforce one active administrator per school
+* [x] Implement the class CRUD with school and responsible-teacher validation
+* [x] Validate the class CRUD transactionally against MySQL
+* [x] Implement the student CRUD with class transfer and name search
+* [x] Prevent class deactivation while active students remain enrolled
+* [x] Validate the student CRUD transactionally against MySQL
+* [x] Reach 182 passing automated tests
 
 ### Remaining
 
 * [ ] Implement the automated migration runner
-* [ ] Create service-layer validation rules
-* [ ] Implement the first CRUD workflow
+* [ ] Create the remaining service-layer validation rules
 * [ ] Design categorical postural observations
+* [ ] Implement the assessment CRUD workflow
 
 ---
 
 # 🎯 Next Milestone
 
-Implement the service and business-rules layers, beginning with school registration
-and assessment-result validation.
+Expand the service and business-rules layers with assessment management and result
+validation.

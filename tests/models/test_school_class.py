@@ -1,7 +1,7 @@
 """Tests for the SchoolClass SQLAlchemy model."""
 
 from sqlalchemy import Enum, UniqueConstraint, inspect
-from sqlalchemy.dialects.mysql import TINYINT, YEAR
+from sqlalchemy.dialects.mysql import TINYINT, YEAR, dialect
 
 from src.models.school import School
 from src.models.school_class import EducationLevel, SchoolClass, SchoolShift
@@ -45,10 +45,17 @@ def test_school_class_required_and_optional_fields_match_schema() -> None:
 
 def test_school_class_specialized_types_match_schema() -> None:
     columns = SchoolClass.__table__.c
+    mysql_dialect = dialect()
 
-    assert isinstance(columns.grade_number.type, TINYINT)
+    assert isinstance(
+        columns.grade_number.type.dialect_impl(mysql_dialect),
+        TINYINT,
+    )
     assert columns.section.type.length == 1
-    assert isinstance(columns.academic_year.type, YEAR)
+    assert isinstance(
+        columns.academic_year.type.dialect_impl(mysql_dialect),
+        YEAR,
+    )
 
 
 def test_school_class_enums_match_schema() -> None:

@@ -212,12 +212,20 @@ The database and ORM foundations are implemented. The application currently incl
 * Bidirectional ORM relationships
 * Configurable motor-test protocols and attempt limits
 * InnoDB foreign-key enforcement
-* Automated ORM model tests
+* School validation and normalization rules
+* Transaction-aware school management service
+* School-scoped teacher management service
+* Active-administrator uniqueness validation
+* School-scoped class management service
+* Class normalization and responsible-teacher validation
+* School-scoped student management and name search
+* Safe student transfer between active classes
+* Automated model, business-rule, and service tests
 
 Current development priorities:
 
-* Service and business-rules layers
-* CRUD workflows
+* Assessment and assessment-result services
+* Assessment-result validation and aggregation
 * Categorical postural-observation modeling
 * User authentication
 * Streamlit interface implementation

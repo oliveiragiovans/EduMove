@@ -41,6 +41,7 @@ Stores educational institutions registered in the system.
 | `phone` | VARCHAR(20) | School phone number |
 | `city` | VARCHAR(100) | City |
 | `state` | CHAR(2) | Brazilian state code |
+| `is_active` | BOOLEAN | Active record indicator |
 | `created_at` | TIMESTAMP | Registration date |
 | `updated_at` | TIMESTAMP | Last update date |
 
@@ -260,6 +261,7 @@ are retained as inactive records.
 | `007_create_assessment_results.sql` | Creates attempts and results | Completed |
 | `008_convert_tables_to_innodb.sql` | Converts tables and restores nine foreign keys | Completed |
 | `009_add_motor_test_protocol_metadata.sql` | Adds result, aggregation, and attempt metadata | Completed |
+| `010_add_school_active_status.sql` | Adds logical deactivation for schools | Completed |
 
 The migration files preserve the incremental database history. The consolidated `schema.sql` can initialize a new EduMove database and has been successfully validated in a temporary MySQL database.
 
@@ -274,9 +276,10 @@ School → Teacher → Class → Student → Assessment → Assessment Result
 ```
 
 Transactional checks use `ROLLBACK`, allowing relationships and constraints to be
-validated without keeping fictitious data. The SQLAlchemy model suite currently
-contains 54 passing tests and every ORM model has been compared with the live MySQL
-schema.
+validated without keeping fictitious data. The automated project suite currently
+contains 182 passing tests, every ORM model has been compared with the live MySQL
+schema, and the class and student CRUDs have been validated transactionally against
+MySQL.
 
 ---
 
@@ -285,7 +288,8 @@ schema.
 The next database tasks are:
 
 * Implement an automated migration runner with safe SQL parsing and migration history;
-* Add service-level validation for school ownership and binary results;
+* Add assessment services with school-ownership validation;
+* Add service-level validation for binary results;
 * Design categorical postural-observation tables;
 * Confirm the scientific source for adapted flexibility reference ranges;
 * Evaluate a class enrollment history table for future versions.

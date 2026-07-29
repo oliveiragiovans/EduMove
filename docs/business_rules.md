@@ -24,6 +24,20 @@ Uma escola é responsável pelos dados cadastrados no sistema.
 
 Uma escola pode possuir apenas um administrador principal na versão 1.0.
 
+## BR-030
+
+Os dados de uma escola devem ser normalizados antes da persistência:
+
+- CNPJ armazenado somente com 14 dígitos, quando informado;
+- e-mail armazenado em letras minúsculas;
+- sigla do estado armazenada em letras maiúsculas;
+- campos de texto sem espaços excedentes.
+
+## BR-031
+
+Uma escola deve ser desativada em vez de excluída, preservando professores, turmas e
+avaliações relacionados.
+
 ---
 
 # 2. Teachers
@@ -50,6 +64,17 @@ Um professor pode ser responsável por nenhuma, uma ou várias turmas.
 
 Um professor pode ser desativado sem que suas avaliações sejam removidas.
 
+## BR-032
+
+Toda consulta, atualização ou desativação de professor deve ser limitada à escola
+informada na operação.
+
+## BR-033
+
+Nome e e-mail devem ser normalizados antes da persistência. Senhas em texto puro não
+podem ser recebidas pelo CRUD de professores; somente hashes gerados pelo futuro
+serviço de autenticação poderão ser armazenados.
+
 ---
 
 # 3. Classes
@@ -75,6 +100,18 @@ Cada turma deve ser única considerando:
 
 Turmas encerradas não devem ser excluídas, apenas marcadas como inativas.
 
+## BR-034
+
+Quando uma turma possuir professor responsável, esse professor deve estar ativo e
+pertencer à mesma escola da turma.
+
+## BR-035
+
+Toda consulta, atualização ou desativação de turma deve ser limitada a uma escola
+ativa. Série e ano letivo devem ser números inteiros válidos, a seção deve possuir
+uma letra e os valores de nível de ensino e turno devem pertencer aos catálogos
+definidos pelo sistema.
+
 ---
 
 # 4. Students
@@ -90,6 +127,23 @@ Um aluno pode trocar de turma durante sua vida escolar.
 ## BR-015
 
 O histórico de avaliações do aluno deve ser preservado mesmo após mudança de turma.
+
+## BR-036
+
+Nome e matrícula do aluno devem ser normalizados antes da persistência. A matrícula
+é opcional, mas, quando informada, deve ser única. A data de nascimento não pode
+estar no futuro.
+
+## BR-037
+
+O cadastro e a transferência de um aluno devem usar uma turma ativa pertencente à
+mesma escola informada na operação. Uma turma com alunos ativos não pode ser
+desativada até que esses alunos sejam transferidos ou desativados.
+
+## BR-038
+
+Toda consulta, busca, atualização ou desativação de aluno deve ser limitada a uma
+escola ativa. Turmas inativas permanecem consultáveis para preservar o histórico.
 
 ---
 

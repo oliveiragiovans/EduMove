@@ -3,7 +3,7 @@
 from datetime import datetime
 from typing import TYPE_CHECKING
 
-from sqlalchemy import CHAR, TIMESTAMP, String, text
+from sqlalchemy import Boolean, CHAR, TIMESTAMP, String, text
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from src.models.base import Base
@@ -25,6 +25,11 @@ class School(Base):
     phone: Mapped[str | None] = mapped_column(String(20))
     city: Mapped[str] = mapped_column(String(100), nullable=False)
     state: Mapped[str] = mapped_column(CHAR(2), nullable=False)
+    is_active: Mapped[bool] = mapped_column(
+        Boolean,
+        nullable=False,
+        server_default=text("1"),
+    )
     created_at: Mapped[datetime] = mapped_column(
         TIMESTAMP,
         nullable=False,

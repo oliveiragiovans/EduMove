@@ -38,14 +38,20 @@ A fundação do backend está implementada:
 - configuração por variáveis de ambiente;
 - conexão MySQL com SQLAlchemy;
 - sete tabelas em InnoDB e nove chaves estrangeiras ativas;
-- nove migrations SQL;
+- dez migrations SQL;
 - modelos ORM para todas as entidades atuais;
 - catálogo configurável de testes motores;
 - seed do MVP com protocolos e limites de tentativas;
-- 54 testes automatizados aprovados.
+- CRUDs implementados para escolas, professores, turmas e alunos;
+- validação e normalização de dados escolares, docentes, das turmas e dos alunos;
+- isolamento de professores por escola e administrador ativo único;
+- validação do professor responsável dentro da escola da turma;
+- busca de alunos por nome e turma, com transferência segura entre turmas;
+- bloqueio da desativação de turmas que ainda possuem alunos ativos;
+- 182 testes automatizados aprovados.
 
-Os próximos marcos são a camada de serviços e regras de negócio, os CRUDs e a
-interface Streamlit.
+Os próximos marcos são expandir serviços e CRUDs para avaliações,
+implementar as regras dos resultados de avaliação e iniciar a interface Streamlit.
 
 ## Tecnologias
 

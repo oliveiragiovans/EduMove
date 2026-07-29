@@ -3,7 +3,10 @@
 import pytest
 
 from src.business_rules.teacher_rules import (
+    MAX_PASSWORD_LENGTH,
+    MIN_PASSWORD_LENGTH,
     TeacherValidationError,
+    normalize_new_password,
     normalize_teacher_changes,
     normalize_teacher_data,
 )
@@ -14,13 +17,11 @@ def test_normalize_teacher_data_cleans_fields_and_uses_default_role() -> None:
     data = normalize_teacher_data(
         name="  Giovana   Oliveira ",
         email=" GIOVANA@EXEMPLO.COM ",
-        password_hash=" $argon2id$hash-de-teste ",
     )
 
     assert data == {
         "name": "Giovana Oliveira",
         "email": "giovana@exemplo.com",
-        "password_hash": "$argon2id$hash-de-teste",
         "role": TeacherRole.TEACHER,
     }
 
@@ -41,7 +42,6 @@ def test_normalize_teacher_data_accepts_supported_roles(
     data = normalize_teacher_data(
         name="Giovana Oliveira",
         email="giovana@exemplo.com",
-        password_hash="$argon2id$hash-de-teste",
         role=value,
     )
 
@@ -53,7 +53,6 @@ def test_normalize_teacher_data_accepts_supported_roles(
     [
         ("name", ""),
         ("email", "email-invalido"),
-        ("password_hash", " "),
         ("role", "Diretor"),
     ],
 )
@@ -64,7 +63,6 @@ def test_normalize_teacher_data_rejects_invalid_fields(
     data = {
         "name": "Giovana Oliveira",
         "email": "giovana@exemplo.com",
-        "password_hash": "$argon2id$hash-de-teste",
         "role": TeacherRole.TEACHER,
     }
     data[field] = value
@@ -105,3 +103,25 @@ def test_normalize_teacher_changes_rejects_invalid_updates(
         normalize_teacher_changes(changes)
 
     assert error.value.field == "changes"
+
+
+def test_new_password_preserves_unicode_and_whitespace() -> None:
+    password = " minha senha longa 🔐 "
+
+    assert normalize_new_password(password) == password
+
+
+@pytest.mark.parametrize(
+    "value",
+    [
+        None,
+        123,
+        "a" * (MIN_PASSWORD_LENGTH - 1),
+        "a" * (MAX_PASSWORD_LENGTH + 1),
+    ],
+)
+def test_new_password_enforces_type_and_length(value: object) -> None:
+    with pytest.raises(TeacherValidationError) as error:
+        normalize_new_password(value)
+
+    assert error.value.field == "password"

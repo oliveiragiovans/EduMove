@@ -195,5 +195,5 @@ Current Version: Backend Foundation
 
 Next Step:
 
-* User authentication
-* Initial Streamlit management interface with guided postural observations
+* Secure first-school and administrator provisioning
+* Initial management interface with guided postural observations

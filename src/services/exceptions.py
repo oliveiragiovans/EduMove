@@ -11,3 +11,7 @@ class EntityNotFoundError(ServiceError):
 
 class ConflictError(ServiceError):
     """Raised when an operation conflicts with existing persisted data."""
+
+
+class AuthenticationError(ServiceError):
+    """Raised when credentials cannot authenticate an active account."""

@@ -300,6 +300,53 @@ binário da imagem.
 Observações livres associadas a uma escolha postural são opcionais, devem ter os
 espaços externos removidos e podem conter no máximo 255 caracteres.
 
+## BR-053
+
+Senhas novas devem possuir entre 15 e 128 caracteres. Espaços, caracteres Unicode e
+frases-senha são permitidos, sem exigência artificial de letras maiúsculas, números
+ou símbolos.
+
+## BR-054
+
+Senhas nunca devem ser persistidas em texto simples. O backend deve gerar um hash
+Argon2id com sal aleatório antes de criar ou atualizar um professor.
+
+## BR-055
+
+Somente professores ativos vinculados a escolas ativas podem autenticar.
+
+## BR-056
+
+Falhas por e-mail inexistente, senha incorreta, professor inativo ou escola inativa
+devem produzir a mesma mensagem genérica, sem revelar quais contas estão
+cadastradas.
+
+## BR-057
+
+Uma troca de senha iniciada pelo professor deve confirmar a senha atual antes de
+persistir o novo hash.
+
+## BR-058
+
+Após um login válido, hashes criados com parâmetros Argon2id antigos devem ser
+atualizados automaticamente quando a configuração de segurança vigente exigir.
+
+## BR-059
+
+A sessão do Streamlit deve armazenar somente o identificador do professor, o
+identificador da escola, nome, e-mail e perfil. Senha e hash não podem fazer parte
+do estado da interface.
+
+## BR-060
+
+Ao sair, a identidade autenticada deve ser removida da sessão e a aplicação deve
+retornar ao formulário de login.
+
+## BR-061
+
+Sem uma identidade autenticada válida, a aplicação deve renderizar somente a tela
+de login e não deve exibir a navegação ou o conteúdo interno.
+
 ## BR-028
 
 O IMC deve ser calculado a partir do peso e da altura registrados na avaliação e não

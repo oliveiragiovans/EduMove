@@ -53,8 +53,8 @@ The development strategy focuses on delivering a functional MVP first, while mai
 * [x] Map all nine current database entities
 * [x] Configure motor-test attempts and aggregation rules
 * [x] Establish the business-rules layer with school validation
-* [ ] Implement the remaining domain validation rules
-* [ ] Implement user authentication
+* [x] Implement secure backend authentication
+* [x] Implement Streamlit login and session management
 * [x] CRUD operations for schools
 * [x] CRUD operations for teachers
 * [x] CRUD operations for classes
@@ -67,7 +67,7 @@ The development strategy focuses on delivering a functional MVP first, while mai
 
 ## Frontend
 
-* [ ] Login page
+* [x] Login page
 * [ ] Dashboard
 * [ ] School and class management
 * [ ] Student management
@@ -195,16 +195,23 @@ Future possibilities for EduMove include:
 * [x] Add the 20-option educational posture catalog
 * [x] Preserve replaced postural choices as inactive history
 * [x] Validate the postural workflow transactionally against MySQL
-* [x] Reach 322 passing automated tests
+* [x] Protect teacher passwords with Argon2id
+* [x] Implement generic active-account authentication and password changes
+* [x] Validate authentication transactionally against MySQL
+* [x] Implement the responsive Streamlit login page
+* [x] Store only minimal identity data in the authenticated session
+* [x] Implement logout and the first protected application shell
+* [x] Reach 348 passing automated tests
 
 ### Remaining
 
 * [ ] Implement the automated migration runner
-* [ ] Implement user authentication
+* [ ] Provision the first school and administrator securely
+* [ ] Connect real school, class, student, and assessment data to the interface
 
 ---
 
 # 🎯 Next Milestone
 
-Implement authentication and begin the Streamlit management interface, including
-the guided postural-observation form.
+Provision the first school administrator without exposing credentials, then connect
+the management interface and guided postural-observation form.

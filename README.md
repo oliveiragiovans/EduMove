@@ -56,10 +56,16 @@ A fundação do backend está implementada:
 - catálogo de 20 opções posturais para ombros, coluna, joelhos e pés;
 - seleção postural por região e vista, com correção sem perda do histórico;
 - quatro pranchas ilustrativas originais vinculadas ao catálogo;
-- 322 testes automatizados aprovados.
+- senhas protegidas com Argon2id e sal aleatório;
+- autenticação de professores e troca segura de senha;
+- bloqueio de login para professor ou escola inativa;
+- página de login responsiva em Streamlit;
+- sessão autenticada com identificação mínima e logout seguro;
+- área inicial protegida com navegação para o módulo de avaliações;
+- 348 testes automatizados aprovados.
 
-Os próximos marcos são implementar autenticação e iniciar a interface Streamlit,
-incluindo o formulário guiado pelas imagens posturais.
+O próximo marco é provisionar com segurança a primeira escola e sua administradora,
+avançando depois para os cadastros e o formulário guiado pelas imagens posturais.
 
 ## Tecnologias
 
@@ -68,6 +74,7 @@ incluindo o formulário guiado pelas imagens posturais.
 - MySQL com InnoDB
 - SQLAlchemy 2.0
 - PyMySQL
+- argon2-cffi
 - python-dotenv
 - pytest
 - Pandas
@@ -78,6 +85,8 @@ incluindo o formulário guiado pelas imagens posturais.
 
 ```text
 EduMove/
+├── .streamlit/
+│   └── config.toml
 ├── assets/
 │   └── posture/
 ├── docs/
@@ -95,11 +104,16 @@ EduMove/
 │   ├── config/
 │   ├── controllers/
 │   ├── models/
+│   ├── security/
 │   ├── services/
 │   ├── utils/
 │   └── views/
 ├── tests/
-│   └── models/
+│   ├── business_rules/
+│   ├── models/
+│   ├── security/
+│   ├── services/
+│   └── views/
 ├── .env.example
 ├── app.py
 ├── requirements.txt

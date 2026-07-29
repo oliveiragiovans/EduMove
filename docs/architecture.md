@@ -227,9 +227,15 @@ The database and ORM foundations are implemented. The application currently incl
 * Educational postural-option catalog with reference-image paths
 * School-scoped postural selections with region/view conflict replacement
 * Logical deactivation preserving postural-observation history
+* Argon2id password hashing with automatic salts
+* Active teacher and school authentication with generic failure responses
+* Current-password verification for credential changes
+* Responsive Streamlit login with light EduMove theme
+* Minimal authenticated identity stored in Streamlit session state
+* Protected application shell with explicit logout
 * Automated model, business-rule, and service tests
 
 Current development priorities:
 
-* User authentication
-* Streamlit interface implementation with guided postural forms
+* Secure first-school and administrator provisioning
+* Streamlit management interface with guided postural forms

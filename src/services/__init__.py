@@ -5,7 +5,12 @@ from src.services.assessment_result_service import (
     AssessmentResultService,
     AssessmentResultSummary,
 )
+from src.services.authentication_service import (
+    AuthenticatedTeacher,
+    AuthenticationService,
+)
 from src.services.exceptions import (
+    AuthenticationError,
     ConflictError,
     EntityNotFoundError,
     ServiceError,
@@ -23,6 +28,9 @@ __all__ = [
     "AssessmentService",
     "AssessmentResultService",
     "AssessmentResultSummary",
+    "AuthenticatedTeacher",
+    "AuthenticationError",
+    "AuthenticationService",
     "ConflictError",
     "EntityNotFoundError",
     "PosturalObservationService",

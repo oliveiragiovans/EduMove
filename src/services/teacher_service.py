@@ -7,12 +7,18 @@ from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session
 
 from src.business_rules.teacher_rules import (
+    normalize_new_password,
     normalize_teacher_changes,
     normalize_teacher_data,
 )
 from src.models.school import School
 from src.models.teacher import Teacher, TeacherRole
-from src.services.exceptions import ConflictError, EntityNotFoundError
+from src.security.passwords import hash_password, verify_password
+from src.services.exceptions import (
+    AuthenticationError,
+    ConflictError,
+    EntityNotFoundError,
+)
 
 
 class TeacherService:
@@ -27,7 +33,7 @@ class TeacherService:
         school_id: int,
         name: str,
         email: str,
-        password_hash: str,
+        password: str,
         role: TeacherRole | str = TeacherRole.TEACHER,
     ) -> Teacher:
         """Validate and persist a teacher for an active school."""
@@ -36,17 +42,42 @@ class TeacherService:
         data = normalize_teacher_data(
             name=name,
             email=email,
-            password_hash=password_hash,
             role=role,
         )
+        password_hash = hash_password(normalize_new_password(password))
         normalized_role = data["role"]
 
         if normalized_role == TeacherRole.ADMINISTRATOR:
             self._ensure_administrator_available(school_id)
 
-        teacher = Teacher(school_id=school_id, **data)
+        teacher = Teacher(
+            school_id=school_id,
+            password_hash=password_hash,
+            **data,
+        )
         self.session.add(teacher)
         self._flush_or_raise_email_conflict()
+        return teacher
+
+    def change_password(
+        self,
+        school_id: int,
+        teacher_id: int,
+        *,
+        current_password: str,
+        new_password: str,
+    ) -> Teacher:
+        """Replace a password after confirming the current credential."""
+
+        teacher = self.get_teacher(school_id, teacher_id)
+
+        if not verify_password(teacher.password_hash, current_password):
+            raise AuthenticationError("Senha atual incorreta.")
+
+        teacher.password_hash = hash_password(
+            normalize_new_password(new_password)
+        )
+        self.session.flush()
         return teacher
 
     def get_teacher(

@@ -35,7 +35,10 @@ from src.business_rules.student_rules import (
     normalize_student_data,
 )
 from src.business_rules.teacher_rules import (
+    MAX_PASSWORD_LENGTH,
+    MIN_PASSWORD_LENGTH,
     TeacherValidationError,
+    normalize_new_password,
     normalize_teacher_changes,
     normalize_teacher_data,
 )
@@ -48,6 +51,8 @@ __all__ = [
     "SchoolValidationError",
     "StudentValidationError",
     "TeacherValidationError",
+    "MAX_PASSWORD_LENGTH",
+    "MIN_PASSWORD_LENGTH",
     "aggregate_attempt_values",
     "normalize_assessment_changes",
     "normalize_assessment_data",
@@ -66,4 +71,5 @@ __all__ = [
     "normalize_student_data",
     "normalize_teacher_changes",
     "normalize_teacher_data",
+    "normalize_new_password",
 ]

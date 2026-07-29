@@ -17,6 +17,8 @@ class TeacherValidationError(ValueError):
 
 _EMAIL_PATTERN = re.compile(r"^[^@\s]+@[^@\s]+\.[^@\s]+$")
 _EDITABLE_FIELDS = {"name", "email", "role"}
+MIN_PASSWORD_LENGTH = 15
+MAX_PASSWORD_LENGTH = 128
 
 
 def _required_text(value: Any, *, field: str, max_length: int) -> str:
@@ -67,31 +69,34 @@ def normalize_teacher_role(value: Any) -> TeacherRole:
     )
 
 
-def normalize_password_hash(value: Any) -> str:
-    """Validate a precomputed password hash without changing its contents."""
+def normalize_new_password(value: Any) -> str:
+    """Validate a new password without trimming or composition rules."""
 
-    if not isinstance(value, str) or not value.strip():
+    if not isinstance(value, str):
         raise TeacherValidationError(
-            "password_hash",
-            "password_hash é obrigatório.",
+            "password",
+            "password deve ser um texto.",
         )
 
-    normalized = value.strip()
-
-    if len(normalized) > 255:
+    if len(value) < MIN_PASSWORD_LENGTH:
         raise TeacherValidationError(
-            "password_hash",
-            "password_hash deve possuir no máximo 255 caracteres.",
+            "password",
+            f"password deve possuir no mínimo {MIN_PASSWORD_LENGTH} caracteres.",
         )
 
-    return normalized
+    if len(value) > MAX_PASSWORD_LENGTH:
+        raise TeacherValidationError(
+            "password",
+            f"password deve possuir no máximo {MAX_PASSWORD_LENGTH} caracteres.",
+        )
+
+    return value
 
 
 def normalize_teacher_data(
     *,
     name: Any,
     email: Any,
-    password_hash: Any,
     role: Any = TeacherRole.TEACHER,
 ) -> dict[str, str | TeacherRole]:
     """Normalize all fields required to create a teacher."""
@@ -99,7 +104,6 @@ def normalize_teacher_data(
     return {
         "name": _required_text(name, field="name", max_length=100),
         "email": normalize_teacher_email(email),
-        "password_hash": normalize_password_hash(password_hash),
         "role": normalize_teacher_role(role),
     }
 

@@ -7,7 +7,12 @@ from sqlalchemy.orm import Session
 from src.business_rules.teacher_rules import TeacherValidationError
 from src.models.school import School
 from src.models.teacher import Teacher, TeacherRole
-from src.services.exceptions import ConflictError, EntityNotFoundError
+from src.security.passwords import verify_password
+from src.services.exceptions import (
+    AuthenticationError,
+    ConflictError,
+    EntityNotFoundError,
+)
 from src.services.teacher_service import TeacherService
 
 
@@ -57,7 +62,7 @@ def create_teacher(
         school_id=school.school_id,
         name=name,
         email=email,
-        password_hash="$argon2id$hash-de-teste",
+        password="senha pedagógica segura",
         role=role,
     )
 
@@ -72,14 +77,19 @@ def test_create_teacher_normalizes_and_persists_data(
         school_id=school.school_id,
         name="  Giovana   Oliveira ",
         email=" GIOVANA@EXEMPLO.COM ",
-        password_hash=" $argon2id$hash-de-teste ",
+        password="minha senha pedagógica",
     )
 
     assert teacher.teacher_id is not None
     assert teacher.school_id == school.school_id
     assert teacher.name == "Giovana Oliveira"
     assert teacher.email == "giovana@exemplo.com"
-    assert teacher.password_hash == "$argon2id$hash-de-teste"
+    assert teacher.password_hash != "minha senha pedagógica"
+    assert teacher.password_hash.startswith("$argon2id$")
+    assert verify_password(
+        teacher.password_hash,
+        "minha senha pedagógica",
+    )
     assert teacher.role is TeacherRole.TEACHER
     assert teacher.is_active is True
 
@@ -219,7 +229,10 @@ def test_update_teacher_changes_only_editable_fields(
     assert updated.email == "novo@exemplo.com"
     assert updated.role is TeacherRole.COORDINATOR
     assert updated.school_id == school.school_id
-    assert updated.password_hash == "$argon2id$hash-de-teste"
+    assert verify_password(
+        updated.password_hash,
+        "senha pedagógica segura",
+    )
 
 
 def test_update_teacher_cannot_create_second_administrator(
@@ -261,6 +274,52 @@ def test_update_teacher_rejects_credential_changes(
             teacher.teacher_id,
             password_hash="novo-hash",
         )
+
+
+def test_change_password_requires_current_password_and_replaces_hash(
+    service: TeacherService,
+    session: Session,
+) -> None:
+    school = create_school(session)
+    teacher = create_teacher(service, school)
+    original_hash = teacher.password_hash
+
+    changed = service.change_password(
+        school.school_id,
+        teacher.teacher_id,
+        current_password="senha pedagógica segura",
+        new_password="uma nova senha pedagógica",
+    )
+
+    assert changed is teacher
+    assert changed.password_hash != original_hash
+    assert not verify_password(
+        changed.password_hash,
+        "senha pedagógica segura",
+    )
+    assert verify_password(
+        changed.password_hash,
+        "uma nova senha pedagógica",
+    )
+
+
+def test_change_password_rejects_wrong_current_password_without_mutation(
+    service: TeacherService,
+    session: Session,
+) -> None:
+    school = create_school(session)
+    teacher = create_teacher(service, school)
+    original_hash = teacher.password_hash
+
+    with pytest.raises(AuthenticationError, match="Senha atual incorreta"):
+        service.change_password(
+            school.school_id,
+            teacher.teacher_id,
+            current_password="senha atual errada",
+            new_password="uma nova senha pedagógica",
+        )
+
+    assert teacher.password_hash == original_hash
 
 
 def test_deactivate_teacher_preserves_record(

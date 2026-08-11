@@ -202,16 +202,18 @@ Future possibilities for EduMove include:
 * [x] Store only minimal identity data in the authenticated session
 * [x] Implement logout and the first protected application shell
 * [x] Reach 348 passing automated tests
+* [x] Implement the secure, one-time interactive provisioning command
+* [x] Reach 355 passing automated tests
 
 ### Remaining
 
 * [ ] Implement the automated migration runner
-* [ ] Provision the first school and administrator securely
+* [x] Provision the first school and administrator securely
 * [ ] Connect real school, class, student, and assessment data to the interface
 
 ---
 
 # 🎯 Next Milestone
 
-Provision the first school administrator without exposing credentials, then connect
-the management interface and guided postural-observation form.
+Connect real school, class, student, and assessment data to the management interface,
+then implement the guided postural-observation form.

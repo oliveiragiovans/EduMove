@@ -15,6 +15,10 @@ from src.services.exceptions import (
     EntityNotFoundError,
     ServiceError,
 )
+from src.services.initial_provisioning_service import (
+    InitialProvisioningService,
+    ProvisionedAccess,
+)
 from src.services.postural_observation_service import (
     PosturalObservationService,
     PosturalObservationSummary,
@@ -33,8 +37,10 @@ __all__ = [
     "AuthenticationService",
     "ConflictError",
     "EntityNotFoundError",
+    "InitialProvisioningService",
     "PosturalObservationService",
     "PosturalObservationSummary",
+    "ProvisionedAccess",
     "SchoolService",
     "SchoolClassService",
     "ServiceError",

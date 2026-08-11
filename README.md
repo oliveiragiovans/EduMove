@@ -62,10 +62,27 @@ A fundação do backend está implementada:
 - página de login responsiva em Streamlit;
 - sessão autenticada com identificação mínima e logout seguro;
 - área inicial protegida com navegação para o módulo de avaliações;
-- 348 testes automatizados aprovados.
+- 355 testes automatizados aprovados.
 
-O próximo marco é provisionar com segurança a primeira escola e sua administradora,
-avançando depois para os cadastros e o formulário guiado pelas imagens posturais.
+O próximo marco é conectar os cadastros reais de turmas, alunos e avaliações à
+interface, avançando depois para o formulário guiado pelas imagens posturais.
+
+### Primeiro acesso
+
+Antes de existir qualquer conta de acesso, execute o provisionamento interativo uma
+única vez:
+
+```powershell
+.\.venv\Scripts\python.exe -m src.cli.provision_first_administrator
+```
+
+Se o banco estiver vazio, o comando solicita os dados da escola e da administradora.
+Se já houver exatamente uma escola ativa e nenhuma conta, ele preserva a escola e
+solicita somente os dados da administradora. A senha é digitada duas vezes sem ser
+exibida, protegida com Argon2id e nunca é aceita como argumento de linha de comando.
+Escola e administradora são criadas na mesma transação quando necessário; qualquer
+falha desfaz toda a operação. Depois da primeira conta, o comando se bloqueia para
+evitar um novo provisionamento inicial.
 
 ## Tecnologias
 
